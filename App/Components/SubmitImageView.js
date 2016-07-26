@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     height: 50,
     textAlign: 'left'
   },
-   bottomNav: { 
+  bottomNav: {
     flex:2,
     flexDirection: 'column',
     justifyContent: 'flex-end'
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 30
   }
-})
+});
 
 class SubmitImageView extends Component {
   constructor(props) {
@@ -55,38 +55,36 @@ class SubmitImageView extends Component {
     this.user = firebase.auth().currentUser;
     this.state = {
       text: ''
-    }
+    };
   }
-  
+
   componentDidMount() {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          let initialPosition = position;
-          this.setState({initialPosition: initialPosition});
-        },
-        (error) => alert(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
-      navigator.geolocation.watchPosition((position) => {
-        let lastPosition = position;
-        this.setState({lastPosition: lastPosition});
-      });
+    navigator.geolocation.getCurrentPosition((position) => {
+      let initialPosition = position;
+      this.setState({initialPosition: initialPosition});
+    }, (error) => alert(error.message),
+                                             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
+
+    navigator.geolocation.watchPosition((position) => {
+      let lastPosition = position;
+      this.setState({lastPosition: lastPosition});
+    });
   }
 
   componentWillUnmount() {
-     this.props.dbRef.off();
-   }
+    this.props.dbRef.off();
+  }
 
   sendArtifact() {
     //the JSON object sent to Firebase below contains text, geolocation, username, and a timestamp
-    this.props.dbRef.push({ 
+    this.props.dbRef.push({
       message: this.state.text,
       user: this.user.displayName,
       latitude: this.state.lastPosition.coords.latitude,
-      longitude: this.state.lastPosition.coords.longitude, 
-      timestamp: Date.now(), 
+      longitude: this.state.lastPosition.coords.longitude,
+      timestamp: Date.now(),
       base64: this.props.base64 },
-      () => { AlertIOS.alert('New message posted!')});
+                          () => { AlertIOS.alert('New message posted!'); });
 
     this.props.navigator.popToTop();
 
@@ -97,14 +95,14 @@ class SubmitImageView extends Component {
       <View style={styles.container}>
 
         <TouchableHighlight onPress={() => this.sendArtifact()}>
-            <View style={styles.bottomNavButton}>
-              <Text style={styles.buttonText}>SUBMIT ARTIFACT</Text>
-            </View>
+          <View style={styles.bottomNavButton}>
+            <Text style={styles.buttonText}>SUBMIT ARTIFACT</Text>
+          </View>
         </TouchableHighlight>
         <TextInput multiline={true} onChangeText={(text) => this.setState({text})} value={this.state.text} style={styles.caption} placeholder='Add caption'></TextInput>
         <Image style={styles.mainImage} source={{uri: this.props.path}}/>
       </View>
-    )
+    );
   }
 }
 

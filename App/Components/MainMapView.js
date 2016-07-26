@@ -17,8 +17,8 @@ import {
 const styles = StyleSheet.create({
   mapContainer: {
     flex:1
-  }, 
-  bottomNav: { 
+  },
+  bottomNav: {
     flex:2,
     flexDirection: 'row',
     justifyContent: 'center'
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 class MainMapView extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     //Initialize the map center point and zoom level to San Francisco.
     //Annotations will be set to a different value in componentDidMount().
@@ -57,9 +57,9 @@ class MainMapView extends Component {
         longitude: -122.4224,
         latitudeDelta: 0.1922,
         longitudeDelta: 0.0421
-      }, 
+      },
       annotations : []
-    } 
+    };
   }
 
   componentDidMount() {
@@ -89,7 +89,7 @@ class MainMapView extends Component {
 
     });
   }
-  
+
   componentWillUnmount() {
     //Unregister the db reference listener when the user navigates away from this view.
     //This is necessary because otherwise the view will attemt to call setState after the component gets unmounted, which causes a warning.
@@ -128,6 +128,11 @@ class MainMapView extends Component {
             <TouchableWithoutFeedback onPress={() => this._handleNextPage('ArtifactListView')}>
               <View style={styles.bottomNavButton}>
                 <Text style={styles.buttonText}>List View</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => this._handleNextPage('ArtifactListView')}>
+              <View style={styles.bottomNavButton}>
+                <Text style={styles.buttonText}>Tags</Text>
               </View>
             </TouchableWithoutFeedback>
 
