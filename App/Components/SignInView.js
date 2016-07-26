@@ -9,19 +9,19 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
-  mainContainer: { 
+  mainContainer: {
     flex: 1,
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  title: { 
+  title: {
     fontSize: 60,
     paddingBottom: 40,
     textAlign: 'center',
     fontFamily: 'Bodoni 72 Smallcaps',
     backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white' 
+    color: 'white'
   },
   searchInput: {
     height: 50,
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   bgImage: { flex: 1,
-    justifyContent: 'center',
-    resizeMode: 'cover'
+             justifyContent: 'center',
+             resizeMode: 'cover'
   },
   button: {
     height: 45,
@@ -78,7 +78,7 @@ class SignInView extends Component {
       email: '',
       password: '',
       error: ''
-    }
+    };
     this._handleAuth();
   }
 
@@ -88,13 +88,13 @@ class SignInView extends Component {
 
     // Firebase method to check user signin
     firebase.auth()
-      .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          this._handleAuth();
-        })
-        .catch((error) => {
-          this.setState({ password:'', error: error.message });
-        });    
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+              this._handleAuth();
+            })
+            .catch((error) => {
+              this.setState({ password:'', error: error.message });
+            });
   }
 
   _handleAuth() {
@@ -118,28 +118,28 @@ class SignInView extends Component {
 
   render() {
     return (
-      <Image style={ styles.bgImage } 
-        source={ {uri: 'https://media.giphy.com/media/XWlS8OnV0KEBW/giphy.gif'} }>
+      <Image style={ styles.bgImage }
+             source={ {uri: 'https://media.giphy.com/media/XWlS8OnV0KEBW/giphy.gif'} }>
         <Text style={ styles.title }>Quest</Text>
-        <TextInput 
-          style={ styles.searchInput }
-          value ={ this.state.email }
-          onChangeText={ (email) => this.setState( {email}) } 
-          placeholder='email'/>
-        <TextInput 
-          style={ styles.searchInput }
-          secureTextEntry={ true }
-          value ={ this.state.password }
-          onChangeText={ (password) => this.setState( {password}) }
-          placeholder='password'/>
-        <TouchableHighlight 
-          style={ styles.button }
-          underlayColor='gray'
-          onPress={ this._handleSignIn.bind(this) }>
+        <TextInput
+            style={ styles.searchInput }
+            value ={ this.state.email }
+            onChangeText={ (email) => this.setState( {email}) }
+            placeholder='email'/>
+        <TextInput
+            style={ styles.searchInput }
+            secureTextEntry={ true }
+            value ={ this.state.password }
+            onChangeText={ (password) => this.setState( {password}) }
+            placeholder='password'/>
+        <TouchableHighlight
+            style={ styles.button }
+            underlayColor='gray'
+            onPress={ this._handleSignIn.bind(this) }>
           <Text style={ styles.buttonText } >Sign In</Text>
         </TouchableHighlight>
-        <TouchableHighlight 
-          onPress={ this._handleToSignUp.bind(this) }>
+        <TouchableHighlight
+            onPress={ this._handleToSignUp.bind(this) }>
           <Text style={ styles.signUp }>
             Don't have an account? Sign up here!
           </Text>

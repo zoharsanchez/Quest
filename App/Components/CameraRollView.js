@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
-  bottomNav: { 
+  bottomNav: {
     flex:2,
     flexDirection: 'column',
     justifyContent: 'flex-end'
@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#24CE84",
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: 30,
+    padding: 30
   },
   buttonText: {
     color: '#FFF',
     fontSize: 30
   }
-})
+});
 
 class CameraRollView extends Component {
   constructor() {
@@ -68,7 +68,7 @@ class CameraRollView extends Component {
       num: 0,
       imageSelected: false,
       base64: ''
-    }
+    };
   }
   // Sets the state of imageSelected to the image that is checked. currentImage keeps track of each image object the user touches.
   getSelectedImage(selectedImage, currentImage) {
@@ -79,9 +79,9 @@ class CameraRollView extends Component {
       selected: selectedImage
     });
     if (!this.state.selected[0]) {
-      this.setState({imageSelected: false})
+      this.setState({imageSelected: false});
     } else if (this.state.selected[0] && currentImage.uri === this.state.selected[0].uri) {
-      this.setState({imageSelected: true})
+      this.setState({imageSelected: true});
     }
   }
   // Reads the image data and sets state as base64 encoded string of image
@@ -100,10 +100,10 @@ class CameraRollView extends Component {
   // If an image is selected the submit button is visible. When there is no image selected an empty View
   buttonShow() {
     return this.state.imageSelected ? <TouchableHighlight onPress={() => this.handleSubmit('SubmitImageView')}>
-            <View style={styles.bottomNavButton}>
-              <Text style={styles.buttonText}>SELECT</Text>
-            </View>
-          </TouchableHighlight> : <View></View>
+      <View style={styles.bottomNavButton}>
+        <Text style={styles.buttonText}>SELECT</Text>
+      </View>
+    </TouchableHighlight> : <View></View>;
   }
   // CameraRollPicker is a module thatgi adds checkmark over current selected image
   render() {
@@ -113,15 +113,15 @@ class CameraRollView extends Component {
           <TouchableHighlight>
             <View style={styles.imageGrid}>
               <CameraRollPicker
-                callback={this.getSelectedImage.bind(this)}
-                selected={this.state.selected}
-                maximum={1}/>
+                  callback={this.getSelectedImage.bind(this)}
+                  selected={this.state.selected}
+                  maximum={1}/>
             </View>
           </TouchableHighlight>
         </ScrollView>
-          {this.buttonShow()}
+        {this.buttonShow()}
       </View>
-    )
+    );
   }
 }
 

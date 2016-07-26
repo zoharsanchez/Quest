@@ -9,19 +9,19 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
-  mainContainer: { 
+  mainContainer: {
     flex: 1,
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  title: { 
+  title: {
     fontSize: 60,
     paddingBottom: 40,
     textAlign: 'center',
     fontFamily: 'Bodoni 72 Smallcaps',
     backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white' 
+    color: 'white'
   },
   searchInput: {
     height: 50,
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   bgImage: { flex: 1,
-    justifyContent: 'center',
-    resizeMode: 'cover'
+             justifyContent: 'center',
+             resizeMode: 'cover'
   },
   button: {
     height: 45,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 });
 
 class SignUpView extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -80,7 +80,7 @@ class SignUpView extends Component {
       email: '',
       password: '',
       error: ''
-    }
+    };
   }
 
   _handleSignUp() {
@@ -90,23 +90,23 @@ class SignUpView extends Component {
 
     // Firebase methods that creates the user 
     firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
 
-          // Firebase method that saves the username
-          let user = firebase.auth().currentUser;
-          user.updateProfile({ displayName: name })
-            .then(()=>{
-              this._handleAuth();
+              // Firebase method that saves the username
+              let user = firebase.auth().currentUser;
+              user.updateProfile({ displayName: name })
+                  .then(()=>{
+                    this._handleAuth();
+                  })
+                  .catch((error)=> {
+                    console.log(error);
+                  });
+
             })
-            .catch((error)=> {
-              console.log(error);
+            .catch((error) => {
+              this.setState({ password: '', error: error.message });
             });
-
-        })
-        .catch((error) => {
-          this.setState({ password: '', error: error.message });
-      });
   }
 
   _handleAuth(){
@@ -127,38 +127,38 @@ class SignUpView extends Component {
 
   render() {
     return (
-      <Image style={ styles.bgImage } 
-      source={{uri: 'https://media.giphy.com/media/IuKnqFMhtcA2A/giphy.gif'}}>
+      <Image style={ styles.bgImage }
+             source={{uri: 'https://media.giphy.com/media/IuKnqFMhtcA2A/giphy.gif'}}>
         <Text style={ styles.title }>Quest</Text>
-        <TextInput 
-          style={ styles.searchInput }
-          value ={ this.state.name }
-          onChangeText={ (name) => this.setState({name}) } 
-          placeholder='name'/>
-        <TextInput 
-          style={ styles.searchInput }
-          value ={ this.state.email }
-          onChangeText={ (email) => this.setState({email}) } 
-          placeholder='email'/>
-        <TextInput 
-          style={ styles.searchInput }
-          secureTextEntry={ true }
-          value ={ this.state.password }
-          onChangeText={ (password) => this.setState({password}) } 
-          placeholder='password'/>
-        <TouchableHighlight 
-          style={ styles.button }
-          underlayColor='gray'
-          onPress={ this._handleSignUp.bind(this) } >
+        <TextInput
+            style={ styles.searchInput }
+            value ={ this.state.name }
+            onChangeText={ (name) => this.setState({name}) } 
+            placeholder='name'/>
+        <TextInput
+            style={ styles.searchInput }
+            value ={ this.state.email }
+            onChangeText={ (email) => this.setState({email}) } 
+            placeholder='email'/>
+        <TextInput
+            style={ styles.searchInput }
+            secureTextEntry={ true }
+            value ={ this.state.password }
+            onChangeText={ (password) => this.setState({password}) } 
+            placeholder='password'/>
+        <TouchableHighlight
+            style={ styles.button }
+            underlayColor='gray'
+            onPress={ this._handleSignUp.bind(this) } >
           <Text style={ styles.buttonText }>Sign Up</Text>
         </TouchableHighlight>
-        <TouchableHighlight 
-          onPress={  this._handleToSignIn.bind(this) }>
+        <TouchableHighlight
+            onPress={  this._handleToSignIn.bind(this) }>
           <Text style={ styles.signIn }>
             Already have an account? Sign in here!
           </Text>
-        </TouchableHighlight> 
-        <Text style={styles.error}>{this.state.error}</Text>   
+        </TouchableHighlight>
+        <Text style={styles.error}>{this.state.error}</Text>
       </Image>
     );
   }
