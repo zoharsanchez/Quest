@@ -1,5 +1,4 @@
 // import all components into index.ios so it can be references by the Navigator
-import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import { SignInView } from './App/Components/SignInView';
 import { SignUpView } from './App/Components/SignUpView';
@@ -19,6 +18,7 @@ import {
 } from 'react-native';
 
 // Initialize Firebase
+import * as firebase from 'firebase';
 import { ENV } from './environment/environment';
 const firebaseApp = firebase.initializeApp(ENV);
 
