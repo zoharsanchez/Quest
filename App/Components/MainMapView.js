@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TouchableWithoutFeedback,
+  TouchableHighlight,
   MapView
 } from 'react-native';
 import { styles } from './Styles/MainMapStyle';
