@@ -99,16 +99,16 @@ class Quest extends Component {
   }
 
   addDbListener() {
-    //Register a listener to the Firebase database reference.
-    //The listener grabs all data in the db at initialization, and picks up any database updates.
-    //The event listener returns a value "snapshot" from Firebase, which is a current snapshot of the db.
+    // Register a listener to the Firebase database reference. The listener 
+    // grabs all data in the db at initialization, and picks up any database 
+    // updates. The event listener returns a value "snapshot" from Firebase, 
+    // which is a current snapshot of the db.
     this.dbRef.on('value', (snapshot) => {
       let parsedItems = [];
 
       snapshot.forEach((rawArtifact) => {
         let artifact = rawArtifact.val();
-
-        //Transform data from Firebase into objects the ListView is expecting
+        // Transform data from Firebase into objects the ListView is expecting
         parsedItems.push({
           user: artifact.user,
           timestamp: artifact.timestamp,
@@ -117,10 +117,9 @@ class Quest extends Component {
           longitude: artifact.longitude,
           imagePath: artifact.base64
         });
-
       });
 
-      //Sort by timestamp in descending (reverse chronological) order.
+      // Sort by timestamp in descending (reverse chronological) order
       parsedItems.sort((a, b) => {
         if(a.date > b.date) {
           return -1;
@@ -131,13 +130,13 @@ class Quest extends Component {
         return 0;
       });
 
-      //Convert dates from UNIX timestamps to human-readable.
+      // Convert dates from UNIX timestamps to human-readable
       parsedItems.forEach((item) => {
         let stringDate = (new Date(item.timestamp)).toString().substring(0, 24);
         item.timestamp = stringDate;
       });
       
-      //Update State.
+      // Update State
       this.setState({
         artifacts: parsedItems
       });
