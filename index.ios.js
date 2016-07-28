@@ -6,7 +6,6 @@ import { SignUpView } from './App/Components/SignUpView';
 import { MainMapView } from './App/Components/MainMapView';
 import { ProfileView } from './App/Components/ProfileView';
 import { ArtifactListView } from './App/Components/ArtifactListView';
-import { DropView } from './App/Components/DropView';
 import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
@@ -29,7 +28,6 @@ const ROUTES = {
   MainMapView: MainMapView,
   ProfileView: ProfileView,
   ArtifactListView: ArtifactListView,
-  DropView: DropView,
   CameraView: CameraView,
   CameraRollView: CameraRollView,
   SubmitImageView: SubmitImageView
@@ -42,7 +40,6 @@ const TITLES = {
   MainMapView: 'Map',
   ProfileView: 'Profile',
   ArtifactListView: 'Artifact List',
-  DropView: 'Drop Artifact',
   CameraView: 'Camera',
   CameraRollView: 'Camera Roll',
   SubmitImageView: 'Submit Artifact'
@@ -95,6 +92,55 @@ class Quest extends Component {
     super(props)
     this.dbRef = firebaseApp.database().ref(),
     this.storageRef = firebaseApp.storage().ref() 
+
+    this.state = {
+      artifacts: []
+    }
+  }
+
+  addDbListener() {
+    // Register a listener to the Firebase database reference. The listener 
+    // grabs all data in the db at initialization, and picks up any database 
+    // updates. The event listener returns a value "snapshot" from Firebase, 
+    // which is a current snapshot of the db.
+    this.dbRef.on('value', (snapshot) => {
+      let parsedItems = [];
+
+      snapshot.forEach((rawArtifact) => {
+        let artifact = rawArtifact.val();
+        // Transform data from Firebase into objects the ListView is expecting
+        parsedItems.push({
+          user: artifact.user,
+          timestamp: artifact.timestamp,
+          message: artifact.message,
+          latitude: artifact.latitude,
+          longitude: artifact.longitude,
+          imagePath: artifact.base64
+        });
+      });
+
+      // Sort by timestamp in descending (reverse chronological) order
+      parsedItems.sort((a, b) => {
+        if(a.date > b.date) {
+          return -1;
+        }
+        if(a.date < b.date) {
+          return 1;
+        }
+        return 0;
+      });
+
+      // Convert dates from UNIX timestamps to human-readable
+      parsedItems.forEach((item) => {
+        let stringDate = (new Date(item.timestamp)).toString().substring(0, 24);
+        item.timestamp = stringDate;
+      });
+      
+      // Update State
+      this.setState({
+        artifacts: parsedItems
+      });
+    });
   }
 
   // Core piece of the Navigator: pass the props and renders the next component
@@ -107,8 +153,10 @@ class Quest extends Component {
         route={route}
         path={path}
         base64={base64}
+        artifacts={this.state.artifacts}
         dbRef={this.dbRef}
         storageRef={this.storageRef}
+        addDbListener={this.addDbListener.bind(this)}
         navigator={navigator} />
     );
   }

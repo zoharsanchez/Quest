@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
   Image,
   TouchableHighlight
 } from 'react-native';
@@ -101,6 +100,7 @@ class SignInView extends Component {
     // Firebase methods to checks if user is logged in
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        this.props.addDbListener();
         this._handleToMap();
       }
     });

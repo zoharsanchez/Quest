@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
   Image,
   TouchableHighlight
 } from 'react-native';
@@ -88,7 +87,7 @@ class SignUpView extends Component {
     let email = this.state.email.trim();
     let password = this.state.password.trim();
 
-    // Firebase methods that creates the user 
+    // Firebase methods that creates the user
     firebase.auth()
             .createUserWithEmailAndPassword(email, password)
             .then(() => {
@@ -133,12 +132,12 @@ class SignUpView extends Component {
         <TextInput
             style={ styles.searchInput }
             value ={ this.state.name }
-            onChangeText={ (name) => this.setState({name}) } 
+            onChangeText={ (name) => this.setState({name}) }
             placeholder='name'/>
         <TextInput
             style={ styles.searchInput }
             value ={ this.state.email }
-            onChangeText={ (email) => this.setState({email}) } 
+            onChangeText={ (email) => this.setState({email}) }
             placeholder='email'/>
         <TextInput
             style={ styles.searchInput }

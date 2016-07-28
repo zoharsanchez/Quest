@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   ListView,
   Image,
   StyleSheet,
@@ -8,6 +7,7 @@ import {
   View,
   TouchableHighlight
 } from 'react-native';
+import * as _ from 'lodash';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,55 +78,6 @@ class ProfileView extends Component {
     super(props);
     this.user = firebase.auth().currentUser;
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: this.ds.cloneWithRows([{}])
-    };
-  }
-
-  componentDidMount() {
-
-    // Firebase method for querying current user's displayName and grabbing only their posts
-    this.props.dbRef.orderByChild("user")
-      .equalTo(this.user.displayName)
-      .on('value', (snapshot) => {
-        let parsedItems = [];
-
-        snapshot.forEach((rawArtifact) => {
-          let artifact = rawArtifact.val();
-
-          parsedItems.push({
-            name: artifact.user,
-            date: artifact.timestamp,
-            text: artifact.message,
-            imagePath: artifact.base64
-          });
-
-        });
-
-        parsedItems.sort((a, b) => {
-          if(a.date > b.date) {
-            return -1;
-          }
-          if(a.date < b.date) {
-            return 1;
-          }
-          return 0;
-        });
-
-        parsedItems.forEach((item) => {
-          let stringDate = (new Date(item.date)).toString().substring(0, 24);
-          item.date = stringDate;
-        });
-
-        this.setState({
-          dataSource: this.ds.cloneWithRows(parsedItems)
-        });
-      });
-  }
-
-  componentWillUnmount() {
-    // dbRef needs to be disconnected before going to another views
-    this.props.dbRef.off();
   }
 
   _handleLogOut() {
@@ -140,45 +91,57 @@ class ProfileView extends Component {
 
   renderHeader() {
     return (
-        <View style={styles.headerContainer}>
+      <View style={styles.headerContainer}>
         <Image
-      style={styles.image}
-      source={{uri: 'https://d30y9cdsu7xlg0.cloudfront.net/png/1685-200.png'}} />
+          style={styles.image}
+          source={{uri: 'https://d30y9cdsu7xlg0.cloudfront.net/png/1685-200.png'}} />
         <Text style={styles.name}> {this.user.displayName} </Text>
         <TouchableHighlight
-      style={ styles.button }
-      underlayColor='gray'
-      onPress={ this._handleLogOut.bind(this) }>
-        <Text style={ styles.logout }>logout</Text>
+          style={ styles.button }
+          underlayColor="gray"
+          onPress={ this._handleLogOut.bind(this) }>
+          <Text style={ styles.logout }>logout</Text>
         </TouchableHighlight>
-        </View>
+      </View>
     );
   }
 
   render() {
+    let artifacts = this.props.artifacts;
+    let dataSource = artifacts.map((artifact) => {
+      return {
+        name: artifact.user,
+        date: artifact.timestamp,
+        text: artifact.message,
+        imagePath: artifact.imagePath
+      };
+    });
+    dataSource = _.filter(dataSource, (artifact) => {return artifact.name === this.user.displayName;});
+    dataSource = this.ds.cloneWithRows(dataSource);
+
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
         <ListView
-      dataSource={this.state.dataSource}
-      initialListSize={3}
-      scrollRenderAheadDistance={3}
-      renderHeader={this.renderHeader.bind(this)}
-      renderRow={(rowData) => {
-        return (
-            <View style={styles.rowContainer}>
-            <View style={styles.imageContainer}>
-            <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
-            </View>
-            <View style={styles.contentContainer}>
-            <Text style={styles.listText}>{rowData.name}</Text>
-            <Text style={styles.listText}>{rowData.text}</Text>
-            <Text style={styles.listText}>{rowData.date}</Text>
-            </View>
-            </View>
-        );
-      }
-                }/>
-        </View>
+          dataSource={dataSource}
+          initialListSize={3}
+          scrollRenderAheadDistance={3}
+          renderHeader={this.renderHeader.bind(this)}
+          renderRow={(rowData) => {
+            return (
+              <View style={styles.rowContainer}>
+                <View style={styles.imageContainer}>
+                  <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
+                </View>
+                <View style={styles.contentContainer}>
+                  <Text style={styles.listText}>{rowData.name}</Text>
+                  <Text style={styles.listText}>{rowData.text}</Text>
+                  <Text style={styles.listText}>{rowData.date}</Text>
+                </View>
+              </View>
+            );
+          }
+        }/>
+      </View>
     );
   }
 }
