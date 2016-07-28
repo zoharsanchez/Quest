@@ -74,10 +74,6 @@ class SubmitImageView extends Component {
     });
   }
 
-  componentWillUnmount() {
-    this.props.dbRef.off();
-  }
-
   sendArtifact() {
     //the JSON object sent to Firebase below contains text, geolocation, username, and a timestamp
     Clarifai.getTagsByImageBytes(this.props.base64.substring(23)).then((resp) => {

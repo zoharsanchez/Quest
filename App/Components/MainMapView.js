@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   bottomNavButton: {
     flex:1,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,

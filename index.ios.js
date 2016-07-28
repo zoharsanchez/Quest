@@ -6,7 +6,6 @@ import { SignUpView } from './App/Components/SignUpView';
 import { MainMapView } from './App/Components/MainMapView';
 import { ProfileView } from './App/Components/ProfileView';
 import { ArtifactListView } from './App/Components/ArtifactListView';
-import { DropView } from './App/Components/DropView';
 import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
@@ -29,7 +28,6 @@ const ROUTES = {
   MainMapView: MainMapView,
   ProfileView: ProfileView,
   ArtifactListView: ArtifactListView,
-  DropView: DropView,
   CameraView: CameraView,
   CameraRollView: CameraRollView,
   SubmitImageView: SubmitImageView
@@ -42,7 +40,6 @@ const TITLES = {
   MainMapView: 'Map',
   ProfileView: 'Profile',
   ArtifactListView: 'Artifact List',
-  DropView: 'Drop Artifact',
   CameraView: 'Camera',
   CameraRollView: 'Camera Roll',
   SubmitImageView: 'Submit Artifact'
@@ -136,8 +133,8 @@ class Quest extends Component {
 
       //Convert dates from UNIX timestamps to human-readable.
       parsedItems.forEach((item) => {
-        let stringDate = (new Date(item.date)).toString().substring(0, 24);
-        item.date = stringDate;
+        let stringDate = (new Date(item.timestamp)).toString().substring(0, 24);
+        item.timestamp = stringDate;
       });
       
       //Update State.
