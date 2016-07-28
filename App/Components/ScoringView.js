@@ -1,4 +1,3 @@
-import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   Text,
@@ -12,11 +11,17 @@ class ScoringView extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
         <Text>Scoring</Text>
-        <Image source={{uri: this.props.imagePath}} />
-        <Text>Your tags</Text>
-        <Text>{this.props.tags.map((tag) => <Text>{tag}</Text> )}</Text>
+        <Image source={{uri: this.props.route.imagePath}}
+               style= {{ height:50, width: 50 }}/>
+        <Text>Tags for image</Text>
+        {this.props.route.photoTags.map((tag) => <Text>{tag}</Text>)}
       </View>
     );
   }

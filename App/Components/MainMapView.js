@@ -46,7 +46,7 @@ class MainMapView extends Component {
             style={styles.map}
             showsUserLocation={true}
             region={this.state.region}
-            annotations={this.state.annotations}
+            annotations={annotations}
         />
 
         <View style={styles.bottomNav}>

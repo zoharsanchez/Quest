@@ -35,16 +35,7 @@ class ArtifactListView extends Component {
           scrollRenderAheadDistance={3}
           renderRow={(rowData) => {
             return (
-              <View style={styles.rowContainer}>
-                <View style={styles.imageContainer}>
-                  <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
-                </View>
-                <View style={styles.contentContainer}>
-                  <Text style={styles.listText}>{rowData.name}</Text>
-                  <Text style={styles.listText}>{rowData.text}</Text>
-                  <Text style={styles.listText}>{rowData.date}</Text>
-                </View>
-              </View>
+              <ArtifactListItemView images={this.images} rowData={rowData} />
             );
           }
         }/>
