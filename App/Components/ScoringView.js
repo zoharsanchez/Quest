@@ -4,6 +4,7 @@ import {
   Image,
   View
 } from 'react-native';
+import { styles } from './Styles/ScoringViewStyle';
 
 class ScoringView extends Component {
   constructor(props) {
@@ -11,15 +12,10 @@ class ScoringView extends Component {
   }
   render() {
     return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
+      <View style={styles.container}>
         <Text>Scoring</Text>
         <Image source={{uri: this.props.route.imagePath}}
-               style= {{ height:50, width: 50 }}/>
+               style= {styles.image}/>
         <Text>Tags for image</Text>
         {this.props.route.photoTags.map((tag) => <Text>{tag}</Text>)}
       </View>
