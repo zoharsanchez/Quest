@@ -4,10 +4,7 @@ import {
   StyleSheet,
   Text,
   Image,
-  NativeModules,
   View,
-  NavigatorIOS,
-  TouchableWithoutFeedback
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -72,10 +69,10 @@ class ArtifactListView extends Component {
 
       //Sort by timestamp in descending (reverse chronological) order.
       parsedItems.sort((a, b) => {
-        if(a.date > b.date) {
+        if (a.date > b.date) {
           return -1;
         }
-        if(a.date < b.date) {
+        if (a.date < b.date) {
           return 1;
         }
         return 0;

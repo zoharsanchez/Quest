@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  ListView,
-  AlertIOS,
   StyleSheet,
   Text,
-  Image,
-  NativeModules,
   View,
-  NavigatorIOS,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   MapView
 } from 'react-native';
@@ -61,48 +54,12 @@ class MainMapView extends Component {
     };
   }
 
-  // componentDidMount() {
-
-  //   //Register a listener to the Firebase database reference.
-  //   //The listener grabs all data in the db at initialization, and picks up any database updates.
-  //   //The event listener returns a value "snapshot" from Firebase, which is a current snapshot of the db.
-  //   this.props.dbRef.on('value', (snapshot) => {
-
-  //     var parsedItems = [];
-  //     snapshot.forEach((rawArtifact) => {
-  //       var artifact = rawArtifact.val();
-
-  //       //Transform objects from Firebase into objects that the MapView is expecting.
-  //       parsedItems.push({
-  //         latitude: artifact.latitude,
-  //         longitude: artifact.longitude,
-  //         title: artifact.user,
-  //         subtitle: artifact.message
-  //       });
-  //     });
-
-  //     //Update State.
-  //     this.setState({
-  //       annotations: parsedItems
-  //     });
-
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   //Unregister the db reference listener when the user navigates away from this view.
-  //   //This is necessary because otherwise the view will attemt to call setState after the component gets unmounted, which causes a warning.
-  //    this.props.dbRef.off();
-  //  }
-
-
   _handleNextPage(componentName) {
     this.props.navigator.push({name: componentName});
   }
 
    //In the MapView component, pins are represented by elements in the annotations array.
   render() {
-    console.log(artifacts[0].latitude);
     let artifacts = this.props.artifacts;
     let annotations = artifacts.map((artifact) => {
       return {

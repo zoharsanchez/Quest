@@ -101,7 +101,7 @@ class Quest extends Component {
     }
   }
 
-  componentDidMount() {
+  addDbListener() {
     //Register a listener to the Firebase database reference.
     //The listener grabs all data in the db at initialization, and picks up any database updates.
     //The event listener returns a value "snapshot" from Firebase, which is a current snapshot of the db.
@@ -139,8 +139,7 @@ class Quest extends Component {
         let stringDate = (new Date(item.date)).toString().substring(0, 24);
         item.date = stringDate;
       });
-
-      console.log('About to update state...')
+      
       //Update State.
       this.setState({
         artifacts: parsedItems
@@ -161,6 +160,7 @@ class Quest extends Component {
         artifacts={this.state.artifacts}
         dbRef={this.dbRef}
         storageRef={this.storageRef}
+        addDbListener={this.addDbListener.bind(this)}
         navigator={navigator} />
     );
   }
