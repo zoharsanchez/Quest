@@ -95,6 +95,57 @@ class Quest extends Component {
     super(props)
     this.dbRef = firebaseApp.database().ref(),
     this.storageRef = firebaseApp.storage().ref() 
+
+    this.state = {
+      artifacts: []
+    }
+  }
+
+  componentDidMount() {
+    //Register a listener to the Firebase database reference.
+    //The listener grabs all data in the db at initialization, and picks up any database updates.
+    //The event listener returns a value "snapshot" from Firebase, which is a current snapshot of the db.
+    this.dbRef.on('value', (snapshot) => {
+      let parsedItems = [];
+
+      snapshot.forEach((rawArtifact) => {
+        let artifact = rawArtifact.val();
+
+        //Transform data from Firebase into objects the ListView is expecting
+        parsedItems.push({
+          user: artifact.user,
+          timestamp: artifact.timestamp,
+          message: artifact.message,
+          latitude: artifact.latitude,
+          longitude: artifact.longitude,
+          imagePath: artifact.base64
+        });
+
+      });
+
+      //Sort by timestamp in descending (reverse chronological) order.
+      parsedItems.sort((a, b) => {
+        if(a.date > b.date) {
+          return -1;
+        }
+        if(a.date < b.date) {
+          return 1;
+        }
+        return 0;
+      });
+
+      //Convert dates from UNIX timestamps to human-readable.
+      parsedItems.forEach((item) => {
+        let stringDate = (new Date(item.date)).toString().substring(0, 24);
+        item.date = stringDate;
+      });
+
+      console.log('About to update state...')
+      //Update State.
+      this.setState({
+        artifacts: parsedItems
+      });
+    });
   }
 
   // Core piece of the Navigator: pass the props and renders the next component
@@ -107,6 +158,7 @@ class Quest extends Component {
         route={route}
         path={path}
         base64={base64}
+        artifacts={this.state.artifacts}
         dbRef={this.dbRef}
         storageRef={this.storageRef}
         navigator={navigator} />

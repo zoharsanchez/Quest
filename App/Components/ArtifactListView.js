@@ -103,25 +103,25 @@ class ArtifactListView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ListView ref="listView" style={styles.list} 
-                  dataSource={this.state.dataSource}
-                  initialListSize={3}
-                  scrollRenderAheadDistance={3}
-                  renderRow={(rowData) => {
-                      return (
-                        <View style={styles.rowContainer}>
-                          <View style={styles.imageContainer}>
-                            <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
-                          </View>
-                          <View style={styles.contentContainer}>
-                            <Text style={styles.listText}>{rowData.name}</Text>
-                            <Text style={styles.listText}>{rowData.text}</Text>
-                            <Text style={styles.listText}>{rowData.date}</Text>
-                          </View>
-                        </View>
-                      );
-                    }
-                            }/>
+        <ListView ref="listView" style={styles.list}
+          dataSource={this.state.dataSource}
+          initialListSize={3}
+          scrollRenderAheadDistance={3}
+          renderRow={(rowData) => {
+            return (
+              <View style={styles.rowContainer}>
+                <View style={styles.imageContainer}>
+                  <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
+                </View>
+                <View style={styles.contentContainer}>
+                  <Text style={styles.listText}>{rowData.name}</Text>
+                  <Text style={styles.listText}>{rowData.text}</Text>
+                  <Text style={styles.listText}>{rowData.date}</Text>
+                </View>
+              </View>
+            );
+          }
+        }/>
       </View>
     );
   }

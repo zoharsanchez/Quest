@@ -81,10 +81,8 @@ class SubmitImageView extends Component {
   sendArtifact() {
     //the JSON object sent to Firebase below contains text, geolocation, username, and a timestamp
     Clarifai.getTagsByImageBytes(this.props.base64.substring(23)).then((resp) => {
-      console.log(this.props.dbRef);
-      console.log(resp);
       let tags = resp.results[0].result.tag.classes;
-      console.log(tags);
+
       this.props.dbRef.push({
         message: this.state.text,
         user: this.user.displayName,
