@@ -28,7 +28,7 @@ class MainMapView extends Component {
     this.props.navigator.push({name: componentName});
   }
 
-   //In the MapView component, pins are represented by elements in the annotations array.
+  //In the MapView component, pins are represented by elements in the annotations array.
   render() {
     let artifacts = this.props.artifacts;
     let annotations = artifacts.map((artifact) => {
@@ -43,37 +43,37 @@ class MainMapView extends Component {
     return (
       <View style={styles.mapContainer}>
         <MapView
-        style={styles.map}
-        showsUserLocation={true}
-        region={this.state.region}
-        annotations={annotations}
+            style={styles.map}
+            showsUserLocation={true}
+            region={this.state.region}
+            annotations={this.state.annotations}
         />
 
         <View style={styles.bottomNav}>
 
-          <TouchableWithoutFeedback onPress={() => this._handleNextPage('ProfileView')}>
+          <TouchableHighlight onPress={() => this._handleNextPage('ProfileView')}>
             <View style={styles.bottomNavButton}>
               <Text style={styles.buttonText}>Profile</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableHighlight>
 
-          <TouchableWithoutFeedback onPress={() => this._handleNextPage('CameraView')}>
+          <TouchableHighlight onPress={() => this._handleNextPage('CameraView')}>
             <View style={styles.bottomNavButton}>
               <Text style={styles.buttonText}>Add Artifact</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableHighlight>
 
-          <TouchableWithoutFeedback onPress={() => this._handleNextPage('ArtifactListView')}>
+          <TouchableHighlight onPress={() => this._handleNextPage('ArtifactListView')}>
             <View style={styles.bottomNavButton}>
               <Text style={styles.buttonText}>List View</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableHighlight>
 
-          <TouchableWithoutFeedback onPress={() => this._handleNextPage('ArtifactListView')}>
+          <TouchableHighlight onPress={() => this._handleNextPage('ArtifactListView')}>
             <View style={styles.bottomNavButton}>
               <Text style={styles.buttonText}>Tags</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableHighlight>
 
         </View>
       </View>
