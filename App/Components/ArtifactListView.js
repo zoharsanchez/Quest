@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   View,
+  TouchableHighlight
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -43,13 +44,26 @@ class ArtifactListView extends Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   }
 
+  _handleArtifactView(date, image, name, text, tags) {
+    this.props.navigator.push({
+      date: date,
+      base64: image,
+      username: name,
+      name: 'ArtifactView',
+      message: text,
+      tags: tags
+    });
+  };
+
   render() {
     let artifacts = this.props.artifacts;
+    console.log('artifacts:', artifacts);
     let dataSource = this.ds.cloneWithRows(artifacts.map((artifact) => {
       return {
         name: artifact.user,
         date: artifact.timestamp,
         text: artifact.message,
+        tags: artifact.tags,
         imagePath: artifact.imagePath
       };
     }));
@@ -62,6 +76,9 @@ class ArtifactListView extends Component {
           scrollRenderAheadDistance={3}
           renderRow={(rowData) => {
             return (
+              <TouchableHighlight
+                underlayColor="whitesmoke"
+                onPress={ this._handleArtifactView.bind(this, rowData.date, rowData.imagePath, rowData.name, rowData.text, rowData.tags) } >
               <View style={styles.rowContainer}>
                 <View style={styles.imageContainer}>
                   <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
@@ -72,6 +89,7 @@ class ArtifactListView extends Component {
                   <Text style={styles.listText}>{rowData.date}</Text>
                 </View>
               </View>
+              </TouchableHighlight>
             );
           }
         }/>
