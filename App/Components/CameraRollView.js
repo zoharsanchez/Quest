@@ -1,64 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  CameraRoll,
-  TextInput,
-  Slider,
-  Image,
-  TouchableOpacity,
   TouchableHighlight,
-  Switch,
   ScrollView
 } from 'react-native';
 import { SubmitImageView } from './SubmitImageView';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import ReadTheData from 'NativeModules';
+import { styles } from './Styles/CameraRollStyle';
 let ReadImageData = ReadTheData.ReadImageData;
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 30,
-    flex: 1,
-    backgroundColor: '#FFF'
-  },
-  imageGrid: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  image: {
-    width: 100,
-    height: 100,
-    margin: 5
-  },
-  textSample: {
-    fontSize: 50,
-    color: 'black'
-  },
-  highlight: {
-    width: 100,
-    height: 100
-  },
-  bottomNav: {
-    flex:2,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
-  bottomNavButton: {
-    flex:1,
-    backgroundColor: "#24CE84",
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: 30
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 30
-  }
-});
 
 class CameraRollView extends Component {
   constructor() {
