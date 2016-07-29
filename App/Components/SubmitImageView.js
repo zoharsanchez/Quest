@@ -54,7 +54,11 @@ class SubmitImageView extends Component {
         base64: this.props.base64 },
                             () => { AlertIOS.alert('New message posted!'); });
 
-      this.props.navigator.popToTop();
+      this.props.navigator.push({
+        name: 'ScoringView',
+        imagePath: this.props.path,
+        photoTags: tags
+      });
 
     }, (err) => { console.log(err); });
 

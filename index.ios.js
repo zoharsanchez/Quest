@@ -9,6 +9,7 @@ import { ArtifactListView } from './App/Components/ArtifactListView';
 import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
+import { ScoringView } from './App/Components/ScoringView';
 import {
   AppRegistry,
   Navigator,
@@ -30,7 +31,8 @@ const ROUTES = {
   ArtifactListView: ArtifactListView,
   CameraView: CameraView,
   CameraRollView: CameraRollView,
-  SubmitImageView: SubmitImageView
+  SubmitImageView: SubmitImageView,
+  ScoringView: ScoringView
 };
 
 // TITLES is a reference to the NavigationBarRouterMapper
