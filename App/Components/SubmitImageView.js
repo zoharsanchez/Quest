@@ -2,7 +2,6 @@ import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import * as Clarifai from 'clarifai';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -11,41 +10,7 @@ import {
   TextInput
 } from 'react-native';
 import { ENV } from '../../environment/environment';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: '#FFF'
-  },
-  mainImage: {
-    height: 400,
-    marginTop: 50
-  },
-  caption: {
-    fontSize: 20,
-    padding: 10,
-    height: 50,
-    textAlign: 'left'
-  },
-  bottomNav: {
-    flex:2,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
-  bottomNavButton: {
-    flex:1,
-    backgroundColor: '#24CE84',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 110,
-    paddingBottom:30
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 30
-  }
-});
+import { styles } from './Styles/SubmitImageStyle';
 
 class SubmitImageView extends Component {
   constructor(props) {
@@ -89,7 +54,11 @@ class SubmitImageView extends Component {
         base64: this.props.base64 },
                             () => { AlertIOS.alert('New message posted!'); });
 
-      this.props.navigator.popToTop();
+      this.props.navigator.push({
+        name: 'ScoringView',
+        imagePath: this.props.path,
+        photoTags: tags
+      });
 
     }, (err) => { console.log(err); });
 

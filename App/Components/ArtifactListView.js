@@ -1,39 +1,11 @@
 import React, { Component } from 'react';
 import {
   ListView,
-  StyleSheet,
-  Text,
-  Image,
   View,
   TouchableHighlight
 } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 60,
-    flex:1
-  },
-  rowContainer: {
-    padding: 10,
-    flexDirection: 'row'
-  },
-  imageContainer: {
-    margin: 3,
-    flex: 2,
-    alignItems: 'stretch'
-  },
-  contentContainer: {
-    margin: 3,
-    flex: 3,
-    justifyContent: 'center'
-  },
-  listImage: {
-    height: 75
-  },
-  listText: {
-    fontSize: 17
-  }
-});
+import { styles } from './Styles/ArtifactListStyle';
+import { ArtifactListItemView } from './ArtifactListItemView.js';
 
 class ArtifactListView extends Component {
 
@@ -91,6 +63,7 @@ class ArtifactListView extends Component {
                 </View>
               </View>
               </TouchableHighlight>
+              <ArtifactListItemView images={this.images} rowData={rowData} />
             );
           }
         }/>

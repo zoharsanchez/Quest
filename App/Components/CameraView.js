@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
   View,
-  CameraRoll,
-  TextInput,
-  Slider,
-  Dimensions,
-  NativeModules,
   Image,
-  TouchableOpacity,
   TouchableHighlight,
-  Switch,
-  ScrollView
 } from 'react-native';
 // react-native-camera is a camera module for react native.
 // currently, we only have back camera functionality but the module has built in properties
@@ -23,43 +13,7 @@ import { CameraRollExample } from './CameraRollView';
 // before sending it to firebase
 import ReadTheData from 'NativeModules';
 const ReadImageData = ReadTheData.ReadImageData;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: 'red',
-    borderRadius: 50,
-    height: 100,
-    width: 100,
-    padding: 10,
-    justifyContent: 'center',
-    margin: 40,
-    borderWidth: 5,
-    borderColor: 'white'
-  },
-  goToCameraRoll: {
-    borderRadius: 25,
-    justifyContent: 'center',
-    height: 50,
-    width: 50,
-    backgroundColor: 'white'
-  },
-  cameraRollText: {
-    color: 'black',
-    textAlign: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0)'
-  }
-});
+import { styles } from './Styles/CameraStyle';
 
 class CameraView extends Component {
   constructor(props) {

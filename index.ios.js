@@ -10,13 +10,14 @@ import { ArtifactListView } from './App/Components/ArtifactListView';
 import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
+import { ScoringView } from './App/Components/ScoringView';
 import {
   AppRegistry,
-  StyleSheet,
   Navigator,
   Text,
   TouchableHighlight
 } from 'react-native';
+import { styles } from './App/Components/Styles/IndexStyle';
 
 // Initialize Firebase
 import { ENV } from './environment/environment';
@@ -32,7 +33,8 @@ const ROUTES = {
   ArtifactListView: ArtifactListView,
   CameraView: CameraView,
   CameraRollView: CameraRollView,
-  SubmitImageView: SubmitImageView
+  SubmitImageView: SubmitImageView,
+  ScoringView: ScoringView
 };
 
 // TITLES is a reference to the NavigationBarRouterMapper
@@ -52,7 +54,7 @@ const TITLES = {
 const NavigationBarRouteMapper = {
   Title: (route, navigator, index, navState) => {
     let title = TITLES[route.name];
-    return (<Text style={styles.title}>{title}</Text>); 
+    return (<Text style={styles.title}>{title}</Text>);
   },
   LeftButton: (route, navigator, index, navState) => {
     if (index === 0) {
@@ -71,24 +73,6 @@ const NavigationBarRouteMapper = {
     return null;
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  navBar: {
-    backgroundColor: '#F9F9F9'
-  },
-  title: {
-    fontSize: 20,
-    padding: 10
-  },
-  back: {
-    fontSize: 20,
-    color: '#03a9f4',
-    padding: 10
-  }
-});
 
 class Quest extends Component {
   constructor(props) {
