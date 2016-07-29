@@ -84,7 +84,7 @@ class Quest extends Component {
   }
 
   changeTags(newTags) {
-    this.setState({tags: newTags});
+    this.setState({currentTags: newTags});
   }
 
   addDbListener() {
