@@ -57,7 +57,7 @@ class ArtifactListView extends Component {
 
   render() {
     let artifacts = this.props.artifacts;
-    console.log('artifacts:', artifacts);
+
     let dataSource = this.ds.cloneWithRows(artifacts.map((artifact) => {
       return {
         name: artifact.user,
@@ -66,7 +66,8 @@ class ArtifactListView extends Component {
         tags: artifact.tags,
         imagePath: artifact.imagePath
       };
-    }));
+    }
+    ));
 
     return (
       <View style={styles.container}>

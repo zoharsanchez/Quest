@@ -118,6 +118,7 @@ class Quest extends Component {
           message: artifact.message,
           latitude: artifact.latitude,
           longitude: artifact.longitude,
+          tags: artifact.tags,
           imagePath: artifact.base64
         });
       });

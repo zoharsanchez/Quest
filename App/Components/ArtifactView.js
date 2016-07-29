@@ -55,7 +55,7 @@ class ArtifactView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image source={{uri: this.props.route.base64}}/>
+          <Image source={{uri: this.props.base64}}/>
         </View>
         
         <View>
