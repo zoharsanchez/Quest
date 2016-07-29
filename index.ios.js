@@ -5,6 +5,7 @@ import { SignInView } from './App/Components/SignInView';
 import { SignUpView } from './App/Components/SignUpView';
 import { MainMapView } from './App/Components/MainMapView';
 import { ProfileView } from './App/Components/ProfileView';
+import { ArtifactView } from './App/Components/ArtifactView';
 import { ArtifactListView } from './App/Components/ArtifactListView';
 import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
@@ -28,6 +29,7 @@ const ROUTES = {
   SignUpView: SignUpView,
   MainMapView: MainMapView,
   ProfileView: ProfileView,
+  ArtifactView: ArtifactView,
   ArtifactListView: ArtifactListView,
   CameraView: CameraView,
   CameraRollView: CameraRollView,
@@ -41,6 +43,7 @@ const TITLES = {
   SignUpView: 'Sign Up',
   MainMapView: 'Map',
   ProfileView: 'Profile',
+  ArtifactView: 'Artifact',
   ArtifactListView: 'Artifact List',
   CameraView: 'Camera',
   CameraRollView: 'Camera Roll',
@@ -59,7 +62,7 @@ const NavigationBarRouteMapper = {
     } else {
       return (
         <TouchableHighlight
-            underlayColor="gray"
+            underlayColor="whitesmoke"
             onPress={() => navigator.pop()}>
           <Text style={styles.back}>Back</Text>
         </TouchableHighlight>
@@ -104,6 +107,7 @@ class Quest extends Component {
           message: artifact.message,
           latitude: artifact.latitude,
           longitude: artifact.longitude,
+          tags: artifact.tags,
           imagePath: artifact.base64
         });
       });

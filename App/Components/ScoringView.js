@@ -17,7 +17,7 @@ class ScoringView extends Component {
         <Image source={{uri: this.props.route.imagePath}}
                style= {styles.image}/>
         <Text>Tags for image</Text>
-        {this.props.route.photoTags.map((tag) => <Text>{tag}</Text>)}
+        {this.props.route.photoTags.map((tag) => <Text key={tag}>{tag}</Text>)}
       </View>
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   ListView,
   View,
+  TouchableHighlight
 } from 'react-native';
 import { styles } from './Styles/ArtifactListStyle';
 import { ArtifactListItemView } from './ArtifactListItemView.js';
@@ -15,16 +16,30 @@ class ArtifactListView extends Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   }
 
+  _handleArtifactView(date, image, name, text, tags) {
+    this.props.navigator.push({
+      date: date,
+      base64: image,
+      username: name,
+      name: 'ArtifactView',
+      message: text,
+      tags: tags
+    });
+  };
+
   render() {
     let artifacts = this.props.artifacts;
+
     let dataSource = this.ds.cloneWithRows(artifacts.map((artifact) => {
       return {
         name: artifact.user,
         date: artifact.timestamp,
         text: artifact.message,
+        tags: artifact.tags,
         imagePath: artifact.imagePath
       };
-    }));
+    }
+    ));
 
     return (
       <View style={styles.container}>
@@ -34,7 +49,7 @@ class ArtifactListView extends Component {
           scrollRenderAheadDistance={3}
           renderRow={(rowData) => {
             return (
-              <ArtifactListItemView images={this.images} rowData={rowData} />
+              <ArtifactListItemView images={this.images} rowData={rowData} handleArtifactView={this._handleArtifactView.bind(this)}/>
             );
           }
         }/>
