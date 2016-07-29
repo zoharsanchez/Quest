@@ -59,8 +59,8 @@ const NavigationBarRouteMapper = {
     } else {
       return (
         <TouchableHighlight
-          underlayColor="gray"
-          onPress={() => navigator.pop()}>
+            underlayColor="gray"
+            onPress={() => navigator.pop()}>
           <Text style={styles.back}>Back</Text>
         </TouchableHighlight>
       );
@@ -79,8 +79,12 @@ class Quest extends Component {
 
     this.state = {
       artifacts: [],
-      tags: []
+      currentTags: []
     };
+  }
+
+  changeTags(newTags) {
+    this.setState({tags: newTags});
   }
 
   addDbListener() {
@@ -134,14 +138,16 @@ class Quest extends Component {
     let base64 = route.base64 || null;
     return (
       <CurrentComponent
-        route={route}
-        path={path}
-        base64={base64}
-        artifacts={this.state.artifacts}
-        dbRef={this.dbRef}
-        storageRef={this.storageRef}
-        addDbListener={this.addDbListener.bind(this)}
-        navigator={navigator} />
+      route={route}
+      path={path}
+      base64={base64}
+      artifacts={this.state.artifacts}
+      currentTags={this.state.currentTags}
+      changeTags={this.changeTags.bind(this)}
+      dbRef={this.dbRef}
+      storageRef={this.storageRef}
+      addDbListener={this.addDbListener.bind(this)}
+      navigator={navigator} />
     );
   }
 
@@ -150,15 +156,15 @@ class Quest extends Component {
     // The Navigator is like a stack you can push and pop views as well as reset it completely
     return (
       <Navigator
-        initialRoute={ {name: 'SignInView', index: 0} }
-        style={ styles.container }
-        renderScene={ this.renderScene.bind(this) }
-        configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
-        navigationBar={
-          <Navigator.NavigationBar
+          initialRoute={ {name: 'SignInView', index: 0} }
+          style={ styles.container }
+          renderScene={ this.renderScene.bind(this) }
+          configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
+          navigationBar={
+            <Navigator.NavigationBar
             routeMapper={ NavigationBarRouteMapper }
             style={ styles.navBar } />
-        } />
+                        } />
     );
   }
 }
