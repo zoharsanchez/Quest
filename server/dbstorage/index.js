@@ -28,7 +28,7 @@ module.exports = {
           'artifact.jpg',
           function(result) {
             console.log('Successfully uploaded to Cloudinary');
-            database.ref().push(
+            database.ref('artifacts').push(
               {
                 message: req.body.message,
                 user: req.body.user,
