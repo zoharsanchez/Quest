@@ -59,11 +59,15 @@ class SubmitImageView extends Component {
           tags: tags,
           base64: this.props.base64
         })
-      })
-      .then((response) => {console.log(response); this.props.navigator.popToTop(); });
+      });
+      // .then((response) => {console.log(response); this.props.navigator.popToTop(); });
+
+      this.props.navigator.push({
+        name: 'ScoringView',
+        imagePath: this.props.path,
+        photoTags: tags
+      });
     }, (err) => { console.log(err); });
-
-
   }
 
   render() {
