@@ -53,8 +53,8 @@ class SubmitImageView extends Component {
         body: JSON.stringify({
           message: this.state.text,
           user: this.user.displayName,
-          // latitude: this.state.lastPosition.coords.latitude,
-          // longitude: this.state.lastPosition.coords.longitude,
+          latitude: this.state.lastPosition.coords.latitude,
+          longitude: this.state.lastPosition.coords.longitude,
           timestamp: Date.now(),
           tags: tags,
           base64: this.props.base64
