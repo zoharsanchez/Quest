@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
   ListView,
-  Text,
-  Image,
   View,
 } from 'react-native';
 import { styles } from './Styles/ArtifactListStyle';
+import { ArtifactListItemView } from './ArtifactListItemView.js';
 
 class ArtifactListView extends Component {
 
