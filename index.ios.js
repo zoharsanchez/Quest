@@ -58,8 +58,8 @@ const NavigationBarRouteMapper = {
       return null;
     } else {
       return (
-        <TouchableHighlight 
-          underlayColor='gray'
+        <TouchableHighlight
+          underlayColor="gray"
           onPress={() => navigator.pop()}>
           <Text style={styles.back}>Back</Text>
         </TouchableHighlight>
@@ -73,19 +73,20 @@ const NavigationBarRouteMapper = {
 
 class Quest extends Component {
   constructor(props) {
-    super(props)
-    this.dbRef = firebaseApp.database().ref(),
-    this.storageRef = firebaseApp.storage().ref() 
+    super(props);
+    this.dbRef = firebaseApp.database().ref();
+    this.storageRef = firebaseApp.storage().ref();
 
     this.state = {
-      artifacts: []
-    }
+      artifacts: [],
+      tags: []
+    };
   }
 
   addDbListener() {
-    // Register a listener to the Firebase database reference. The listener 
-    // grabs all data in the db at initialization, and picks up any database 
-    // updates. The event listener returns a value "snapshot" from Firebase, 
+    // Register a listener to the Firebase database reference. The listener
+    // grabs all data in the db at initialization, and picks up any database
+    // updates. The event listener returns a value "snapshot" from Firebase,
     // which is a current snapshot of the db.
     this.dbRef.on('value', (snapshot) => {
       let parsedItems = [];
@@ -105,10 +106,10 @@ class Quest extends Component {
 
       // Sort by timestamp in descending (reverse chronological) order
       parsedItems.sort((a, b) => {
-        if(a.date > b.date) {
+        if (a.date > b.date) {
           return -1;
         }
-        if(a.date < b.date) {
+        if (a.date < b.date) {
           return 1;
         }
         return 0;
@@ -119,7 +120,6 @@ class Quest extends Component {
         let stringDate = (new Date(item.timestamp)).toString().substring(0, 24);
         item.timestamp = stringDate;
       });
-      
       // Update State
       this.setState({
         artifacts: parsedItems
@@ -129,11 +129,11 @@ class Quest extends Component {
 
   // Core piece of the Navigator: pass the props and renders the next component
   renderScene(route, navigator) {
-    let Component = ROUTES[route.name];
+    let CurrentComponent = ROUTES[route.name];
     let path = route.path || null;
     let base64 = route.base64 || null;
     return (
-      <Component
+      <CurrentComponent
         route={route}
         path={path}
         base64={base64}
@@ -150,10 +150,10 @@ class Quest extends Component {
     // The Navigator is like a stack you can push and pop views as well as reset it completely
     return (
       <Navigator
-        initialRoute={ {name: 'SignInView', index: 0} } 
+        initialRoute={ {name: 'SignInView', index: 0} }
         style={ styles.container }
         renderScene={ this.renderScene.bind(this) }
-        configureScene={ () => {return Navigator.SceneConfigs.FloatFromRight} }
+        configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
         navigationBar={
           <Navigator.NavigationBar
             routeMapper={ NavigationBarRouteMapper }
@@ -163,5 +163,5 @@ class Quest extends Component {
   }
 }
 
-// Only needed in index.ios for app registration 
+// Only needed in index.ios for app registration
 AppRegistry.registerComponent('quest', () => Quest);
