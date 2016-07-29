@@ -73,7 +73,20 @@ const NavigationBarRouteMapper = {
     }
   },
   RightButton: (route, navigator, index, navState) => {
-    return null;
+    if (route.name === 'ScoringView') {
+      return (
+        <TouchableHighlight
+          underlayColor="whitesmoke"
+          onPress={() => {
+            navigator.resetTo({name: 'MainMapView'});
+          }
+          }>
+          <Text style={styles.back}>Back To Map</Text>
+        </TouchableHighlight>
+      );
+    } else {
+      return null;
+    }
   }
 };
 

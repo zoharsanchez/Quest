@@ -10,9 +10,10 @@ class ScoringView extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <Text>Scoring</Text>
         <Image source={{uri: this.props.route.imagePath}}
                style= {styles.image}/>
