@@ -44,21 +44,23 @@ class SubmitImageView extends Component {
     Clarifai.getTagsByImageBytes(this.props.base64.substring(23)).then((resp) => {
       let tags = resp.results[0].result.tag.classes;
 
-      this.props.dbRef.push({
-        message: this.state.text,
-        user: this.user.displayName,
-        latitude: this.state.lastPosition.coords.latitude,
-        longitude: this.state.lastPosition.coords.longitude,
-        timestamp: Date.now(),
-        tags: tags,
-        base64: this.props.base64 },
-                            () => { AlertIOS.alert('New message posted!'); });
-
-      this.props.navigator.push({
-        name: 'ScoringView',
-        imagePath: this.props.path,
-        photoTags: tags
-      });
+      fetch('http://localhost:8080/classes/artifacts', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: this.state.text,
+          user: this.user.displayName,
+          // latitude: this.state.lastPosition.coords.latitude,
+          // longitude: this.state.lastPosition.coords.longitude,
+          timestamp: Date.now(),
+          tags: tags,
+          base64: this.props.base64
+        })
+      })
+      .then((response) => {console.log(response); this.props.navigator.popToTop(); });
 
     }, (err) => { console.log(err); });
 
