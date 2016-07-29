@@ -82,15 +82,18 @@ class Quest extends Component {
     super(props);
     this.dbRef = firebaseApp.database().ref('artifacts');
     this.storageRef = firebaseApp.storage().ref();
+    this.userRef = firebaseApp.database();
 
     this.state = {
       artifacts: [],
-      currentTags: []
+      currentTags: ['nature', 'pyry', 'hello']
     };
   }
 
   changeTags(newTags) {
+    console.log('old state:', this.state.currentTags);
     this.setState({currentTags: newTags});
+    console.log('new state:', this.state.currentTags);
   }
 
   generateNewTags() {
@@ -160,6 +163,7 @@ class Quest extends Component {
       addDbListener={this.addDbListener.bind(this)}
       generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
+      userRef={this.userRef}
       storageRef={this.storageRef}
       navigator={navigator} />
     );
