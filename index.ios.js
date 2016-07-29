@@ -93,6 +93,11 @@ class Quest extends Component {
     this.setState({currentTags: newTags});
   }
 
+  generateNewTags() {
+    // This will be called from within TagsView...how it works TBD
+    console.log('hello!');
+  }
+
   addDbListener() {
     // Register a listener to the Firebase database reference. The listener
     // grabs all data in the db at initialization, and picks up any database
@@ -152,9 +157,10 @@ class Quest extends Component {
       artifacts={this.state.artifacts}
       currentTags={this.state.currentTags}
       changeTags={this.changeTags.bind(this)}
+      addDbListener={this.addDbListener.bind(this)}
+      generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
       storageRef={this.storageRef}
-      addDbListener={this.addDbListener.bind(this)}
       navigator={navigator} />
     );
   }
