@@ -36,7 +36,7 @@ class ArtifactListView extends Component {
         date: artifact.timestamp,
         text: artifact.message,
         tags: artifact.tags,
-        imagePath: artifact.imagePath
+        imagePath: artifact.url
       };
     }
     ));
