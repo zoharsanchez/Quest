@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   View,
+  TouchableHighlight
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -34,6 +35,9 @@ const styles = StyleSheet.create({
 });
 
 const ArtifactListItemView = (props) => (
+    <TouchableHighlight
+      underlayColor="whitesmoke"
+      onPress={ () => props.handleArtifactView(props.rowData.date, props.rowData.imagePath, props.rowData.name, props.rowData.text, props.rowData.tags) } >
   <View style={styles.rowContainer}>
     <View style={styles.imageContainer}>
       <Image source={{uri: props.rowData.imagePath}} style={styles.listImage} />
@@ -44,6 +48,7 @@ const ArtifactListItemView = (props) => (
       <Text style={styles.listText}>{props.rowData.date}</Text>
     </View>
   </View>
+  </TouchableHighlight>
 );
 
 export { ArtifactListItemView };

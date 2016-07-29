@@ -49,21 +49,7 @@ class ArtifactListView extends Component {
           scrollRenderAheadDistance={3}
           renderRow={(rowData) => {
             return (
-              <TouchableHighlight
-                underlayColor="whitesmoke"
-                onPress={ this._handleArtifactView.bind(this, rowData.date, rowData.imagePath, rowData.name, rowData.text, rowData.tags) } >
-              <View style={styles.rowContainer}>
-                <View style={styles.imageContainer}>
-                  <Image source={{uri: rowData.imagePath}} style={styles.listImage} />
-                </View>
-                <View style={styles.contentContainer}>
-                  <Text style={styles.listText}>{rowData.name}</Text>
-                  <Text style={styles.listText}>{rowData.text}</Text>
-                  <Text style={styles.listText}>{rowData.date}</Text>
-                </View>
-              </View>
-              </TouchableHighlight>
-              <ArtifactListItemView images={this.images} rowData={rowData} />
+              <ArtifactListItemView images={this.images} rowData={rowData} handleArtifactView={this._handleArtifactView.bind(this)}/>
             );
           }
         }/>
