@@ -11,6 +11,7 @@ import { CameraView } from './App/Components/CameraView';
 import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
 import { ScoringView } from './App/Components/ScoringView';
+import { TagsView } from './App/Components/TagsView';
 import {
   AppRegistry,
   Navigator,
@@ -34,7 +35,8 @@ const ROUTES = {
   CameraView: CameraView,
   CameraRollView: CameraRollView,
   SubmitImageView: SubmitImageView,
-  ScoringView: ScoringView
+  ScoringView: ScoringView,
+  TagsView: TagsView
 };
 
 // TITLES is a reference to the NavigationBarRouterMapper
@@ -47,7 +49,8 @@ const TITLES = {
   ArtifactListView: 'Artifact List',
   CameraView: 'Camera',
   CameraRollView: 'Camera Roll',
-  SubmitImageView: 'Submit Artifact'
+  SubmitImageView: 'Submit Artifact',
+  TagsView: 'Tags'
 };
 
 // Renders the title of the NavBar
@@ -90,6 +93,11 @@ class Quest extends Component {
     this.setState({currentTags: newTags});
   }
 
+  generateNewTags() {
+    // This will be called from within TagsView...how it works TBD
+    console.log('hello!');
+  }
+
   addDbListener() {
     // Register a listener to the Firebase database reference. The listener
     // grabs all data in the db at initialization, and picks up any database
@@ -128,6 +136,7 @@ class Quest extends Component {
         let stringDate = (new Date(item.timestamp)).toString().substring(0, 24);
         item.timestamp = stringDate;
       });
+
       // Update State
       this.setState({
         artifacts: parsedItems
@@ -148,9 +157,10 @@ class Quest extends Component {
       artifacts={this.state.artifacts}
       currentTags={this.state.currentTags}
       changeTags={this.changeTags.bind(this)}
+      addDbListener={this.addDbListener.bind(this)}
+      generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
       storageRef={this.storageRef}
-      addDbListener={this.addDbListener.bind(this)}
       navigator={navigator} />
     );
   }
@@ -160,15 +170,16 @@ class Quest extends Component {
     // The Navigator is like a stack you can push and pop views as well as reset it completely
     return (
       <Navigator
-          initialRoute={ {name: 'SignInView', index: 0} }
-          style={ styles.container }
-          renderScene={ this.renderScene.bind(this) }
-          configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
-          navigationBar={
-            <Navigator.NavigationBar
-            routeMapper={ NavigationBarRouteMapper }
-            style={ styles.navBar } />
-                        } />
+        initialRoute={ {name: 'SignInView', index: 0} }
+        style={ styles.container }
+        renderScene={ this.renderScene.bind(this) }
+        configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
+        navigationBar={
+          <Navigator.NavigationBar
+          routeMapper={ NavigationBarRouteMapper }
+          style={ styles.navBar } />
+        }
+      />
     );
   }
 }

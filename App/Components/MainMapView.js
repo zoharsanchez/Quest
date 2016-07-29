@@ -69,7 +69,7 @@ class MainMapView extends Component {
             </View>
           </TouchableHighlight>
 
-          <TouchableHighlight onPress={() => this._handleNextPage('ArtifactListView')}>
+          <TouchableHighlight onPress={() => this._handleNextPage('TagsView')}>
             <View style={styles.bottomNavButton}>
               <Text style={styles.buttonText}>Tags</Text>
             </View>
