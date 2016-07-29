@@ -61,7 +61,6 @@ class SubmitImageView extends Component {
         })
       })
       .then((response) => {console.log(response); this.props.navigator.popToTop(); });
-
     }, (err) => { console.log(err); });
 
 
