@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   tagContainer: {
-    backgroundColor: '#ef553a',
+    backgroundColor: '#03a9f4',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 5,
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   tagText: {
-    fontSize: 32
+    fontSize: 32,
+    color: 'white'
   },
   buttonContainer: {
     flex: 0.15
