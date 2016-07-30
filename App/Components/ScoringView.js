@@ -56,7 +56,7 @@ class ScoringView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <Text>Scoring</Text>
         <Text>{'Pic Score: ' + this.state.picScore}</Text>
         <Text>{'Game Score: ' + this.props.gameScore}</Text>
