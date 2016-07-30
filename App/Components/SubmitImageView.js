@@ -7,8 +7,6 @@ import {
   View,
   Image,
   TouchableHighlight,
-  AlertIOS,
-  TextInput
 } from 'react-native';
 import { ENV } from '../../environment/environment';
 import { styles } from './Styles/SubmitImageStyle';
@@ -129,7 +127,6 @@ class SubmitImageView extends Component {
             <Text style={styles.buttonText}>SUBMIT ARTIFACT</Text>
           </View>
         </TouchableHighlight>
-        <TextInput multiline={true} onChangeText={(text) => this.setState({text})} value={this.state.text} style={styles.caption} placeholder="Add caption" />
         <Image style={styles.mainImage} source={{uri: this.props.path}}/>
       </View>
     );
