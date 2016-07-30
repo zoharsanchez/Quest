@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
   },
   tagTextExploding: {
     fontSize: 20,
-    color: 'black',
-    textDecorationLine: 'line-through'
+    color: 'white',
+    textDecorationLine: 'line-through',
+    opacity: .9
   },
   scoreText: {
     fontSize: 20

@@ -114,7 +114,6 @@ class ScoringView extends Component {
               let tagStyle;
               let tagTextStyle;
 
-              this.props.route.newTags = [];
               // Exploding style
               if (this.props.route.newTags.indexOf(tag.tag) !== -1) {
                 tagStyle = styles.tagExploding;
