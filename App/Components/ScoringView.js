@@ -1,9 +1,11 @@
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 import React, { Component } from 'react';
 import {
   Text,
   Image,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 import { styles } from './Styles/ScoringViewStyle';
 
@@ -51,22 +53,54 @@ class ScoringView extends Component {
       this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/picCount').set(this.props.picCount);
 
       console.log('after db sets');
+
+      // var allDone = _.reduce(this.props.currentTags, function(acc, tag) {
+      //   return acc && tag.done;
+      // }, true);
+      // console.log('allDone', allDone);
+
+      if (_.every(this.props.currentTags, ['done', true])) {
+        this.state.gameOver = 'You got all 20 tags!';
+      } else if (this.props.picCount >= 10) {
+        this.state.gameOver = 'Ten pictures reached!';
+      }
     }
   }
 
+  navToGameOver() {
+    console.log('navToGameOver', this.props);
+    this.props.navigator.push({
+      name: 'GameOverView',
+      imagePath: this.props.path
+    });
+  }
+
   render() {
+    var gameOverButton = (
+      <View style={styles.buttonContainer}>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.navToGameOver.bind(this)}>
+          <Text style={styles.buttonText}>See Game Results</Text>
+        </TouchableHighlight>
+      </View>
+    );
     return (
-      <View style={styles.container} >
-        <Text>Scoring</Text>
-        <Text>{'Pic Score: ' + this.state.picScore}</Text>
-        <Text>{'Game Score: ' + this.props.gameScore}</Text>
-        <Text>{'Pics Taken: ' + this.props.picCount}</Text>
-        <Image source={{uri: this.props.route.imagePath}}
-               style= {styles.image}/>
-        <Text>Tags for image</Text>
-        {this.props.route.photoTags.map((tag) => <Text key={tag}>{tag}</Text>)}
-        <Text>New Tags</Text>
-        {this.props.route.newTags.map((tag) => <Text key={tag}>{tag}</Text>)}
+      <View style={styles.container}>
+        <View>
+          <Text>Scoring</Text>
+          <Text>{'Pic Score: ' + this.state.picScore}</Text>
+          <Text>{'Game Score: ' + this.props.gameScore}</Text>
+          <Text>{'Pics Taken: ' + this.props.picCount}</Text>
+          <Image source={{uri: this.props.route.imagePath}}
+                 style= {styles.image}/>
+          <Text>Tags for image</Text>
+          {this.props.route.photoTags.map((tag) => <Text key={tag}>{tag}</Text>)}
+          <Text>New Tags</Text>
+          {this.props.route.newTags.map((tag) => <Text key={tag}>{tag}</Text>)}
+        </View>
+        <Text>{this.state.gameOver}</Text>
+        {this.state.gameOver ? gameOverButton : null}
       </View>
     );
   }
