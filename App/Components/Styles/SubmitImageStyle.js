@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF'
   },
   mainImage: {
-    height: 400,
+    height: 455,
     marginTop: 50
   },
   caption: {
