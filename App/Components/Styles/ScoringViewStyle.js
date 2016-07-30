@@ -8,13 +8,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  topHalfContainer: {
+    flex: 0.58,
+    flexDirection: 'row'
+  },
   scoreContainer: {
-    backgroundColor: 'blue',
-    flex: 0.2
+    flex: 0.8,
+    fontSize: 20,
+    alignItems: 'center'
   },
   imageContainer: {
-    backgroundColor: 'pink',
-    flex: 0.3
+    flex: 1
   },
   tagsContainer: {
     paddingTop: 4,
@@ -34,13 +38,23 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     marginLeft: 5,
     marginRight: 5,
+    opacity: 1
   },
-  tagsText: {
-
+  hiddenTag: {
+    opacity: 0
+  },
+  tagText: {
+    fontSize: 20
+  },
+  scoreText: {
+    fontSize: 20
+  },
+  scoreboard: {
+    fontSize: 20
   },
   image: {
-    height: 150,
-    width: 150
+    height: 220,
+    width: 210
   }
 });
 

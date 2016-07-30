@@ -22,6 +22,7 @@ class ScoringView extends Component {
 
     var newScore = this.props.gameScore + this.state.picScore;
     var newCount = this.props.picCount + 1;
+
     this.props.updateGame(newScore, newCount);
   }
 
@@ -79,9 +80,18 @@ class ScoringView extends Component {
     return (
       <View style={styles.container}>
 
-        <View style={styles.imageContainer}>
-          <Image source={{uri: this.props.route.imagePath}}
-                 style= {styles.image}/>
+        <View style={styles.topHalfContainer}>
+          <View style={styles.imageContainer}>
+            <Image source={{uri: this.props.route.imagePath}}
+                   style= {styles.image}/>
+          </View>
+
+          <View style={styles.scoreContainer}>
+            <Text style={styles.scoreboard}>Scoreboard</Text>
+            <Text style={styles.scoreText}>{'This pic: ' + this.state.picScore}</Text>
+            <Text style={styles.scoreText}>{'Total: ' + this.props.gameScore}</Text>
+            <Text style={styles.scoreText}>{'Pics Taken: ' + this.props.picCount}</Text>
+          </View>
         </View>
 
         <View style={styles.tagsContainer}>
@@ -92,15 +102,9 @@ class ScoringView extends Component {
           )}
         </View>
 
-        <View style={styles.scoreContainer}>
-          <Text>Scoring</Text>
-          <Text>{'Pic Score: ' + this.state.picScore}</Text>
-          <Text>{'Game Score: ' + this.props.gameScore}</Text>
-          <Text>{'Pics Taken: ' + this.props.picCount}</Text>
-        </View>
-
         <Text>{this.state.gameOver}</Text>
         {this.state.gameOver ? gameOverButton : null}
+
       </View>
     );
   }
