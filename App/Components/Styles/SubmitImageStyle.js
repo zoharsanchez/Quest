@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   bottomNavButton: {
     flex:1,
-    backgroundColor: '#24CE84',
+    backgroundColor: '#ef5350',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 110,

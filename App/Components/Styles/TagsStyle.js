@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     marginLeft: 5,
-    marginRight: 5
+    marginRight: 5,
+    opacity: 0.3
   },
   incompleteTagContainer: {
     backgroundColor: '#03a9f4',
@@ -38,17 +39,18 @@ const styles = StyleSheet.create({
   },
   completeTagText: {
     fontSize: 32,
-    color: 'black'
+    color: 'white',
+    textDecorationLine: 'line-through'
   },
   incompleteTagText: {
     fontSize: 32,
     color: 'white'
   },
   buttonContainer: {
-    flex: 0.15
+    flex: 0.2
   },
   button: {
-    height: 45,
+    height: 65,
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'stretch',

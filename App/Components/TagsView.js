@@ -13,7 +13,7 @@ class TagsView extends Component {
   }
 
   getTagContainerStyle(tag) {
-    if (tag.status) {
+    if (tag.complete) {
       return styles.completeTagContainer;
     } else {
       return styles.incompleteTagContainer;
@@ -21,7 +21,7 @@ class TagsView extends Component {
   }
 
   getTagTextStyle(tag) {
-    if (tag.status) {
+    if (tag.complete) {
       return styles.completeTagText;
     } else {
       return styles.incompleteTagText;
@@ -30,12 +30,12 @@ class TagsView extends Component {
 
   render() {
     let testData = [
-      {text: 'hi', status: true},
-      {text: 'this', status: true},
-      {text: 'is', status: false},
-      {text: 'fantastic', status: true},
-      {text: 'test', status: false},
-      {text: 'data', status: true}
+      {text: 'hi', complete: true},
+      {text: 'this', complete: true},
+      {text: 'is', complete: false},
+      {text: 'fantastic', complete: true},
+      {text: 'test', complete: false},
+      {text: 'data', complete: true}
     ];
 
     // TODO: To unhardcode test data, change to this.props.currentTags
@@ -53,8 +53,8 @@ class TagsView extends Component {
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             style={styles.button}
-            onPress={ this.props.generateNewTags }>
-            <Text style={styles.buttonText}>Generate New Tags</Text>
+            onPress={this.props.generateNewTags}>
+            <Text style={styles.buttonText}>GENERATE NEW TAGS</Text>
           </TouchableHighlight>
         </View>
 
