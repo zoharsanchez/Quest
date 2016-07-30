@@ -63,33 +63,40 @@ class SubmitImageView extends Component {
       });
       // .then((response) => {console.log(response); this.props.navigator.popToTop(); });
 
-      this.props.navigator.push({
-        name: 'ScoringView',
-        imagePath: this.props.path,
-        photoTags: tags
-      });
 
       var currentTags = _.map(this.props.currentTags, (tagObj) => tagObj.tag);
-      let newTags = _.difference(currentTags, tags);
-      console.log('newTags:', newTags, 'currentTags:', this.props.currentTags);
+      // let newTags = _.difference(currentTags, tags);
+      console.log(/*'newTags:', newTags, */'currentTags:', this.props.currentTags);
       let correctTags = _.intersection(currentTags, tags);
       console.log('correctTags:', correctTags);
+
+      var newTags = [];
 
       let newState = _.map(this.props.currentTags, (tagObj) => {
         var result = tagObj;
         if (correctTags.includes(tagObj.tag)){
+          if (result.done === false) {
+            newTags.push(tagObj.tag);
+          }
           result.done = true;
         }
         return result;
+      });
+
+      console.log('newTags', newTags);
+
+      this.props.navigator.push({
+        name: 'ScoringView',
+        imagePath: this.props.path,
+        photoTags: tags,
+        newTags: newTags
       });
 
       this.props.changeTags(newState);
 
       console.log('new currentTags state', newState);
       // Strangely enough this url-like argument is case sensitive
-      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase()).set({
-        currentTags: newState
-      });
+      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/currentTags').set(newState);
 
       this.props.userRef.ref('tags').once('value', (rawTags) => {
         let tagsObj = rawTags.val();
