@@ -28,6 +28,7 @@ class ArtifactListView extends Component {
   };
 
   render() {
+    console.log('list', this.props);
     let artifacts = this.props.artifacts;
 
     let dataSource = this.ds.cloneWithRows(artifacts.map((artifact) => {
@@ -49,7 +50,7 @@ class ArtifactListView extends Component {
           scrollRenderAheadDistance={3}
           renderRow={(rowData) => {
             return (
-              <ArtifactListItemView images={this.images} rowData={rowData} handleArtifactView={this._handleArtifactView.bind(this)}/>
+              <ArtifactListItemView rowData={rowData} handleArtifactView={this._handleArtifactView.bind(this)}/>
             );
           }
         }/>

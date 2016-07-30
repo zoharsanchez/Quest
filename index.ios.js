@@ -80,7 +80,7 @@ const NavigationBarRouteMapper = {
 class Quest extends Component {
   constructor(props) {
     super(props);
-    this.dbRef = firebaseApp.database().ref();
+    this.dbRef = firebaseApp.database().ref('artifacts');
     this.storageRef = firebaseApp.storage().ref();
 
     this.state = {
@@ -116,7 +116,7 @@ class Quest extends Component {
           latitude: artifact.latitude,
           longitude: artifact.longitude,
           tags: artifact.tags,
-          imagePath: artifact.base64
+          imagePath: artifact.url
         });
       });
 
