@@ -49,8 +49,8 @@ class ScoringView extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.gameScore !== nextProps.gameScore || this.props.picCount !== nextProps.picCount) {
       console.log('receiving props', nextProps.gameScore, nextProps.picCount);
-      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/gameScore').set(this.props.gameScore);
-      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/picCount').set(this.props.picCount);
+      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/gameScore').set(nextProps.gameScore);
+      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase() + '/picCount').set(nextProps.picCount);
 
       console.log('after db sets');
 
@@ -62,7 +62,7 @@ class ScoringView extends Component {
       if (_.every(this.props.currentTags, ['done', true])) {
         this.state.gameOver = 'You got all 20 tags!';
       } else if (this.props.picCount >= 10) {
-        this.state.gameOver = 'Ten pictures reached!';
+        this.state.gameOver = 'Game Over: Ten pictures reached';
       }
     }
   }
@@ -71,7 +71,25 @@ class ScoringView extends Component {
     console.log('navToGameOver', this.props);
     this.props.navigator.push({
       name: 'GameOverView',
-      imagePath: this.props.path
+      imagePath: this.props.path,
+      gameScore: this.props.gameScore,
+      picCount: this.props.picCount
+    });
+
+    this.props.userRef.ref('tags').once('value', (rawTags) => {
+      let tagsObj = rawTags.val();
+      let tags = Object.keys(tagsObj);
+      let newTags = _.sampleSize(tags, 20);
+      console.log(newTags);
+      let newState = _.map(newTags, (tag) => {return {tag: tag, done: false}; });
+      this.props.changeTags(newState);
+      this.props.updateGame(0, 0);
+      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase()).set({
+        currentTags: newState,
+        gameScore: 0,
+        picCount: 0
+      });
+      console.log('started new game');
     });
   }
 
@@ -94,8 +112,6 @@ class ScoringView extends Component {
           <Text>{'Pics Taken: ' + this.props.picCount}</Text>
           <Image source={{uri: this.props.route.imagePath}}
                  style= {styles.image}/>
-          <Text>Tags for image</Text>
-          {this.props.route.photoTags.map((tag) => <Text key={tag}>{tag}</Text>)}
           <Text>New Tags</Text>
           {this.props.route.newTags.map((tag) => <Text key={tag}>{tag}</Text>)}
         </View>
