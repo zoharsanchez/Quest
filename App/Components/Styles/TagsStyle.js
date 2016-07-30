@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   completeTagText: {
-    fontSize: 32,
+    fontSize: 24,
     color: 'white',
     textDecorationLine: 'line-through',
     opacity: 0.7
 
   },
   incompleteTagText: {
-    fontSize: 32,
+    fontSize: 24,
     color: 'white'
   },
   buttonContainer: {

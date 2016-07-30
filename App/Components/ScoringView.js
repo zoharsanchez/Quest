@@ -80,7 +80,15 @@ class ScoringView extends Component {
       </View>
     );
 
-    let currentTags = this.props.currentTags.map((tag) => (tag.tag));
+    var invisibleButton = (
+      <View style={styles.invisButtonContainer}>
+        <TouchableHighlight style={styles.invisButton}>
+          <Text />
+        </TouchableHighlight>
+      </View>
+    );
+
+    this.state.gameOver = true;
 
     return (
       <View style={styles.container}>
@@ -99,38 +107,38 @@ class ScoringView extends Component {
           </View>
         </View>
 
-        <View style={styles.tagsContainer}>
+        <View style={styles.bottomHalfContainer}>
+          <View style={styles.tagsContainer}>
+            {this.props.currentTags.map((tag) => {
+              // Assign CSS for the tags
+              let tagStyle;
+              let tagTextStyle;
 
-          {this.props.currentTags.map((tag) => {
-            // Assign CSS for the tags
-            let tagStyle;
-            let tagTextStyle;
+              this.props.route.newTags = [];
+              // Exploding style
+              if (this.props.route.newTags.indexOf(tag.tag) !== -1) {
+                tagStyle = styles.tagExploding;
+                tagTextStyle = styles.tagTextExploding;
+              // Tag done style
+              } else if (tag.done) {
+                tagStyle = styles.tagDone;
+                tagTextStyle = styles.tagTextDone;
+              // Tag not done style
+              } else {
+                tagStyle = styles.tagNotDone;
+                tagTextStyle = styles.tagTextNotDone;
+              }
 
-            // Exploding style
-            if (this.props.route.newTags.indexOf(tag.tag) !== -1) {
-              tagStyle = styles.tagExploding;
-              tagTextStyle = styles.tagTextExploding;
-            // Tag done style
-            } else if (tag.done) {
-              tagStyle = styles.tagDone;
-              tagTextStyle = styles.tagTextDone;
-            // Tag not done style
-            } else {
-              tagStyle = styles.tagNotDone;
-              tagTextStyle = styles.tagTextNotDone;
-            }
+              return (
+                <View style={tagStyle}>
+                  <Text key={tag} style={tagTextStyle}>{tag.tag}</Text>
+                </View>
+              );
+            })}
+          </View>
 
-            return (
-              <View style={tagStyle}>
-                <Text key={tag} style={tagTextStyle}>{tag.tag}</Text>
-              </View>
-            );
-          })}
-
+          {this.state.gameOver ? gameOverButton : invisibleButton}
         </View>
-
-        <Text>{this.state.gameOver}</Text>
-        {this.state.gameOver ? gameOverButton : null}
 
       </View>
     );

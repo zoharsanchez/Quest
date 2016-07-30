@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   topHalfContainer: {
-    flex: 0.58,
+    flex: 0.55,
     flexDirection: 'row'
   },
   scoreContainer: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   tagsContainer: {
-    paddingTop: 4,
+    paddingTop: 0,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -84,11 +84,47 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   scoreboard: {
-    fontSize: 20
+    fontSize: 24
   },
   image: {
     height: 220,
     width: 210
+  },
+  buttonContainer: {
+    flex: 0.38
+  },
+  button: {
+    height: 65,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+    marginBottom: 10,
+    backgroundColor: '#ef5350'
+  },
+  buttonText: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    fontSize: 20,
+    color: 'white'
+  },
+
+  invisButtonContainer: {
+    flex: 0.2
+  },
+  invisButton: {
+    height: 65,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+    marginBottom: 10,
+    backgroundColor: '#ef5350',
+    opacity: 0
   }
 });
 
