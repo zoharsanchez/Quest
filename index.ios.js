@@ -7,7 +7,6 @@ import { ProfileView } from './App/Components/ProfileView';
 import { ArtifactView } from './App/Components/ArtifactView';
 import { ArtifactListView } from './App/Components/ArtifactListView';
 import { CameraView } from './App/Components/CameraView';
-import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
 import { ScoringView } from './App/Components/ScoringView';
 import { TagsView } from './App/Components/TagsView';
@@ -18,6 +17,9 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { styles } from './App/Components/Styles/IndexStyle';
+
+// Suppress yellow warnings
+console.disableYellowBox = true;
 
 // Initialize Firebase
 import * as firebase from 'firebase';
@@ -33,7 +35,6 @@ const ROUTES = {
   ArtifactView: ArtifactView,
   ArtifactListView: ArtifactListView,
   CameraView: CameraView,
-  CameraRollView: CameraRollView,
   SubmitImageView: SubmitImageView,
   ScoringView: ScoringView,
   TagsView: TagsView
@@ -48,7 +49,6 @@ const TITLES = {
   ArtifactView: 'Artifact',
   ArtifactListView: 'Artifact List',
   CameraView: 'Camera',
-  CameraRollView: 'Camera Roll',
   SubmitImageView: 'Submit Artifact',
   TagsView: 'Tags'
 };
