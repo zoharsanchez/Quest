@@ -91,9 +91,7 @@ class Quest extends Component {
   }
 
   changeTags(newTags) {
-    console.log('old state:', this.state.currentTags);
     this.setState({currentTags: newTags});
-    console.log('new state:', this.state.currentTags);
   }
 
   generateNewTags() {

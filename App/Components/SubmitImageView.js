@@ -72,10 +72,7 @@ class SubmitImageView extends Component {
       let newTags = _.difference(this.props.currentTags, tags);
       let correctTags = _.intersection(this.props.currentTags, tags);
 
-      console.log('newTags:', newTags, 'correctTags:', correctTags);
-
       this.props.changeTags(newTags);
-      console.log('props should be changed:', this.props.currentTags);
 
       // Strangely enough this url-like argument is case sensitive
       this.props.userRef.ref('users/' + this.user.displayName.toLowerCase()).set({
