@@ -88,8 +88,6 @@ class ScoringView extends Component {
       </View>
     );
 
-    this.state.gameOver = true;
-
     return (
       <View style={styles.container}>
 
