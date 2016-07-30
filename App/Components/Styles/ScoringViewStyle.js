@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textDecorationLine: 'line-through',
-    opacity: .9
+    opacity: 0.9
   },
   scoreText: {
     fontSize: 20
