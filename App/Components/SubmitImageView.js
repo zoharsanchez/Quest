@@ -43,7 +43,7 @@ class SubmitImageView extends Component {
     Clarifai.getTagsByImageBytes(this.props.base64.substring(23)).then((resp) => {
       let tags = resp.results[0].result.tag.classes;
 
-      fetch('http://localhost:8080/classes/artifacts', {
+      fetch('https://morning-brushlands-89401.herokuapp.com/classes/artifacts', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
