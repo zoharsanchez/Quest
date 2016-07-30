@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 import React, { Component } from 'react';
 import * as Clarifai from 'clarifai';
 import {
@@ -67,6 +68,28 @@ class SubmitImageView extends Component {
         imagePath: this.props.path,
         photoTags: tags
       });
+
+      let newTags = _.difference(this.props.currentTags, tags);
+      console.log('newTags:', newTags, 'currentTags:', this.props.currentTags);
+      let correctTags = _.intersection(this.props.currentTags, tags);
+
+      this.props.changeTags(newTags);
+
+      console.log('this is important', this.user, newTags, tags);
+      // Strangely enough this url-like argument is case sensitive
+      this.props.userRef.ref('users/' + this.user.displayName.toLowerCase()).set({
+        currentTags: newTags
+      });
+
+      // Saving hash map to firebase, this way we only ever save unique tags
+      var foundTags = _.reduce(tags, (prev, curr) => {
+        prev[curr] = true;
+        return prev;
+      }, {});
+
+      console.log(foundTags);
+      this.props.userRef.ref('tags').set(foundTags);
+
     }, (err) => { console.log(err); });
   }
 

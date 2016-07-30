@@ -23,6 +23,7 @@ console.disableYellowBox = true;
 
 // Initialize Firebase
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 import { ENV } from './environment/environment';
 const firebaseApp = firebase.initializeApp(ENV);
 
@@ -82,6 +83,7 @@ class Quest extends Component {
     super(props);
     this.dbRef = firebaseApp.database().ref('artifacts');
     this.storageRef = firebaseApp.storage().ref();
+    this.userRef = firebaseApp.database();
 
     this.state = {
       artifacts: [],
@@ -142,7 +144,36 @@ class Quest extends Component {
         artifacts: parsedItems
       });
     });
+
+    let user = firebase.auth().currentUser;
+    this.userRef.ref('users/' + user.displayName.toLowerCase() + '/currentTags').once('value', (data) => {
+      let currentTags = data.val();
+      if (currentTags !== null) {
+        this.setState({
+          currentTags: currentTags
+        });
+        console.log(this.state.currentTags);
+      } else {
+        this.userRef.ref('tags').once('value', (rawTags) => {
+          let tagsObj = rawTags.val();
+          let tags = Object.keys(tagsObj);
+          let newTags = _.sampleSize(tags, 20);
+          console.log(newTags);
+          let newState = _.map(newTags, (tag) => {return {tag: tag, done: false}; });
+          this.setState({
+            currentTags: newState
+          });
+          this.userRef.ref('users/' + user.displayName.toLowerCase()).set({
+            currentTags: newState
+          });
+
+        });
+      }
+    });
+
+
   }
+
 
   // Core piece of the Navigator: pass the props and renders the next component
   renderScene(route, navigator) {
@@ -160,6 +191,7 @@ class Quest extends Component {
       addDbListener={this.addDbListener.bind(this)}
       generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
+      userRef={this.userRef}
       storageRef={this.storageRef}
       navigator={navigator} />
     );
