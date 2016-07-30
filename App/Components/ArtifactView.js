@@ -30,14 +30,11 @@ class ArtifactView extends Component {
           <Image style={styles.artifactViewImage} source={{uri: this.props.base64}}/>
         </View>
         <View>
-          <Text style={styles.artifactViewName}>{this.props.route.username} <Text style={styles.artifactViewDate}>{this.props.route.date}</Text></Text>
+          <Text style={styles.artifactViewName}>{this.props.route.username}</Text>
+          <Text style={styles.artifactViewDate}>{this.props.route.date}</Text>
         </View>
         <View>
           <Text style={styles.artifactViewText}>{this.props.route.message}</Text>
-        </View>
-        <View>
-          <Text style={styles.artifactViewTags}>Tags:</Text>
-          <Text style={styles.artifactViewTags}>{this.props.route.tags}</Text>
         </View>
       </View>
     );
