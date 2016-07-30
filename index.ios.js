@@ -169,9 +169,18 @@ class Quest extends Component {
     let user = firebase.auth().currentUser;
     this.userRef.ref('users/' + user.displayName.toLowerCase()/* + '/currentTags'*/).once('value', (data) => {
       // let currentTags = data.val();
-      let currentTags = data.val().currentTags;
-      let gameScore = data.val().gameScore;
-      let picCount = data.val().picCount;
+      let currentTags;
+      let gameScore;
+      let picCount;
+      if (data.val() === null) {
+        currentTags = null;
+        gameScore = 0;
+        picCount = 0;
+      } else {
+        currentTags = data.val().currentTags;
+        gameScore = data.val().gameScore;
+        picCount = data.val().picCount;
+      }
       if (currentTags !== null) {
         this.setState({
           currentTags: currentTags,
