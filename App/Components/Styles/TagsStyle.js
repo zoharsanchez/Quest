@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
   completeTagText: {
     fontSize: 32,
     color: 'white',
-    textDecorationLine: 'line-through'
+    textDecorationLine: 'line-through',
+    opacity: 0.7
+
   },
   incompleteTagText: {
     fontSize: 32,
