@@ -29,23 +29,15 @@ class TagsView extends Component {
   }
 
   render() {
-    let testData = [
-      {text: 'hi', complete: true},
-      {text: 'this', complete: true},
-      {text: 'is', complete: false},
-      {text: 'fantastic', complete: true},
-      {text: 'test', complete: false},
-      {text: 'data', complete: true}
-    ];
 
     // TODO: To unhardcode test data, change to this.props.currentTags
     return (
       <View style={styles.mainContainer}>
 
         <View style={styles.allTags}>
-          {testData.map((tag) =>
-            <View style={this.getTagContainerStyle(tag)}>
-              <Text style={this.getTagTextStyle(tag)}>{tag.text}</Text>
+          {this.props.currentTags.map((tagObj) =>
+            <View style={this.getTagContainerStyle(tagObj)}>
+              <Text style={this.getTagTextStyle(tagObj)}>{tagObj.tag}</Text>
             </View>
           )}
         </View>
