@@ -87,12 +87,18 @@ class Quest extends Component {
 
     this.state = {
       artifacts: [],
-      currentTags: []
+      currentTags: [],
+      gameScore: 0,
+      picCount: 0
     };
   }
 
   changeTags(newTags) {
     this.setState({currentTags: newTags});
+  }
+
+  updateGame(score, pics) {
+    this.setState({ gameScore: score, picCount: pics });
   }
 
   generateNewTags() {
@@ -146,13 +152,18 @@ class Quest extends Component {
     });
 
     let user = firebase.auth().currentUser;
-    this.userRef.ref('users/' + user.displayName.toLowerCase() + '/currentTags').once('value', (data) => {
-      let currentTags = data.val();
+    this.userRef.ref('users/' + user.displayName.toLowerCase()/* + '/currentTags'*/).once('value', (data) => {
+      // let currentTags = data.val();
+      let currentTags = data.val().currentTags;
+      let gameScore = data.val().gameScore;
+      let picCount = data.val().picCount;
       if (currentTags !== null) {
         this.setState({
-          currentTags: currentTags
+          currentTags: currentTags,
+          gameScore: gameScore,
+          picCount: picCount
         });
-        console.log(this.state.currentTags);
+        console.log('initiated', this.state.currentTags, this.state.gameScore, this.state.picCount);
       } else {
         this.userRef.ref('tags').once('value', (rawTags) => {
           let tagsObj = rawTags.val();
@@ -161,10 +172,14 @@ class Quest extends Component {
           console.log(newTags);
           let newState = _.map(newTags, (tag) => {return {tag: tag, done: false}; });
           this.setState({
-            currentTags: newState
+            currentTags: newState,
+            gameScore: 0,
+            picCount: 0
           });
           this.userRef.ref('users/' + user.displayName.toLowerCase()).set({
-            currentTags: newState
+            currentTags: newState,
+            gameScore: 0,
+            picCount: 0
           });
 
         });
@@ -187,7 +202,10 @@ class Quest extends Component {
       base64={base64}
       artifacts={this.state.artifacts}
       currentTags={this.state.currentTags}
+      gameScore={this.state.gameScore}
+      picCount={this.state.picCount}
       changeTags={this.changeTags.bind(this)}
+      updateGame={this.updateGame.bind(this)}
       addDbListener={this.addDbListener.bind(this)}
       generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
