@@ -7,7 +7,6 @@ import { ProfileView } from './App/Components/ProfileView';
 import { ArtifactView } from './App/Components/ArtifactView';
 import { ArtifactListView } from './App/Components/ArtifactListView';
 import { CameraView } from './App/Components/CameraView';
-import { CameraRollView } from './App/Components/CameraRollView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
 import { ScoringView } from './App/Components/ScoringView';
 import { TagsView } from './App/Components/TagsView';
@@ -19,8 +18,12 @@ import {
 } from 'react-native';
 import { styles } from './App/Components/Styles/IndexStyle';
 
+// Suppress yellow warnings
+console.disableYellowBox = true;
+
 // Initialize Firebase
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 import { ENV } from './environment/environment';
 const firebaseApp = firebase.initializeApp(ENV);
 
@@ -33,7 +36,6 @@ const ROUTES = {
   ArtifactView: ArtifactView,
   ArtifactListView: ArtifactListView,
   CameraView: CameraView,
-  CameraRollView: CameraRollView,
   SubmitImageView: SubmitImageView,
   ScoringView: ScoringView,
   TagsView: TagsView
@@ -48,7 +50,6 @@ const TITLES = {
   ArtifactView: 'Artifact',
   ArtifactListView: 'Artifact List',
   CameraView: 'Camera',
-  CameraRollView: 'Camera Roll',
   SubmitImageView: 'Submit Artifact',
   TagsView: 'Tags'
 };
@@ -95,15 +96,22 @@ class Quest extends Component {
     super(props);
     this.dbRef = firebaseApp.database().ref('artifacts');
     this.storageRef = firebaseApp.storage().ref();
+    this.userRef = firebaseApp.database();
 
     this.state = {
       artifacts: [],
-      currentTags: []
+      currentTags: [],
+      gameScore: 0,
+      picCount: 0
     };
   }
 
   changeTags(newTags) {
     this.setState({currentTags: newTags});
+  }
+
+  updateGame(score, pics) {
+    this.setState({ gameScore: score, picCount: pics });
   }
 
   generateNewTags() {
@@ -155,7 +163,45 @@ class Quest extends Component {
         artifacts: parsedItems
       });
     });
+
+    let user = firebase.auth().currentUser;
+    this.userRef.ref('users/' + user.displayName.toLowerCase()/* + '/currentTags'*/).once('value', (data) => {
+      // let currentTags = data.val();
+      let currentTags = data.val().currentTags;
+      let gameScore = data.val().gameScore;
+      let picCount = data.val().picCount;
+      if (currentTags !== null) {
+        this.setState({
+          currentTags: currentTags,
+          gameScore: gameScore,
+          picCount: picCount
+        });
+        console.log('initiated', this.state.currentTags, this.state.gameScore, this.state.picCount);
+      } else {
+        this.userRef.ref('tags').once('value', (rawTags) => {
+          let tagsObj = rawTags.val();
+          let tags = Object.keys(tagsObj);
+          let newTags = _.sampleSize(tags, 20);
+          console.log(newTags);
+          let newState = _.map(newTags, (tag) => {return {tag: tag, done: false}; });
+          this.setState({
+            currentTags: newState,
+            gameScore: 0,
+            picCount: 0
+          });
+          this.userRef.ref('users/' + user.displayName.toLowerCase()).set({
+            currentTags: newState,
+            gameScore: 0,
+            picCount: 0
+          });
+
+        });
+      }
+    });
+
+
   }
+
 
   // Core piece of the Navigator: pass the props and renders the next component
   renderScene(route, navigator) {
@@ -169,10 +215,14 @@ class Quest extends Component {
       base64={base64}
       artifacts={this.state.artifacts}
       currentTags={this.state.currentTags}
+      gameScore={this.state.gameScore}
+      picCount={this.state.picCount}
       changeTags={this.changeTags.bind(this)}
+      updateGame={this.updateGame.bind(this)}
       addDbListener={this.addDbListener.bind(this)}
       generateNewTags={this.generateNewTags.bind(this)}
       dbRef={this.dbRef}
+      userRef={this.userRef}
       storageRef={this.storageRef}
       navigator={navigator} />
     );
