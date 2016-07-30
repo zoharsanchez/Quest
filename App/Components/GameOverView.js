@@ -22,7 +22,8 @@ class GameOverView extends Component {
     var finalScore = this.props.route.gameScore + bonus;
     this.state = {
       bonus: bonus,
-      finalScore: finalScore
+      finalScore: finalScore,
+      doneCount: doneCount
     };
     console.log('bonus', this.state.bonus, 'finalScore', this.state.finalScore);
   }
@@ -49,9 +50,10 @@ class GameOverView extends Component {
         <View>
           <Text>Game Results</Text>
           <Text>{'Score from Images: ' + this.props.route.gameScore}</Text>
+          <Text>{'Tags Completed: ' + this.state.doneCount}</Text>
+          <Text>{'Pics Taken: ' + this.props.route.picCount}</Text>
           <Text>{'Bonus: ' + this.state.bonus}</Text>
           <Text>{'Final Score: ' + this.state.finalScore}</Text>
-          <Text>{'Pics Taken: ' + this.props.route.picCount}</Text>
         </View>
       </View>
     );
