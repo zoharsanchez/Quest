@@ -10,6 +10,7 @@ import { CameraView } from './App/Components/CameraView';
 import { SubmitImageView } from './App/Components/SubmitImageView';
 import { ScoringView } from './App/Components/ScoringView';
 import { TagsView } from './App/Components/TagsView';
+import { GameOverView } from './App/Components/GameOverView';
 import {
   AppRegistry,
   Navigator,
@@ -38,7 +39,8 @@ const ROUTES = {
   CameraView: CameraView,
   SubmitImageView: SubmitImageView,
   ScoringView: ScoringView,
-  TagsView: TagsView
+  TagsView: TagsView,
+  GameOverView: GameOverView
 };
 
 // TITLES is a reference to the NavigationBarRouterMapper
