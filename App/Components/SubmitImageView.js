@@ -69,16 +69,26 @@ class SubmitImageView extends Component {
         photoTags: tags
       });
 
-      let newTags = _.difference(this.props.currentTags, tags);
+      var currentTags = _.map(this.props.currentTags, (tagObj) => tagObj.tag);
+      let newTags = _.difference(currentTags, tags);
       console.log('newTags:', newTags, 'currentTags:', this.props.currentTags);
-      let correctTags = _.intersection(this.props.currentTags, tags);
+      let correctTags = _.intersection(currentTags, tags);
+      console.log('correctTags:', correctTags);
 
-      this.props.changeTags(newTags);
+      let newState = _.map(this.props.currentTags, (tagObj) => {
+        var result = tagObj;
+        if (correctTags.includes(tagObj.tag)){
+          result.done = true;
+        }
+        return result;
+      });
 
-      console.log('this is important', this.user, newTags, tags);
+      this.props.changeTags(newState);
+
+      console.log('new currentTags state', newState);
       // Strangely enough this url-like argument is case sensitive
       this.props.userRef.ref('users/' + this.user.displayName.toLowerCase()).set({
-        currentTags: newTags
+        currentTags: newState
       });
 
       // Saving hash map to firebase, this way we only ever save unique tags
