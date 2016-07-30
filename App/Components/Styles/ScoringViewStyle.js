@@ -27,7 +27,33 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap'
   },
-  tagContainer: {
+  tagExploding: {
+    backgroundColor: 'red',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 8,
+    marginTop: 4,
+    marginBottom: 4,
+    marginLeft: 5,
+    marginRight: 5,
+    opacity: 1
+  },
+  tagDone: {
+    backgroundColor: '#03a9f4',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 8,
+    marginTop: 4,
+    marginBottom: 4,
+    marginLeft: 5,
+    marginRight: 5,
+    opacity: 0.3
+  },
+  tagNotDone: {
     backgroundColor: '#03a9f4',
     paddingLeft: 10,
     paddingRight: 10,
@@ -40,11 +66,19 @@ const styles = StyleSheet.create({
     marginRight: 5,
     opacity: 1
   },
-  hiddenTag: {
-    opacity: 0
+  tagTextNotDone: {
+    fontSize: 20,
+    color: 'white'
   },
-  tagText: {
-    fontSize: 20
+  tagTextDone: {
+    fontSize: 20,
+    color: 'white',
+    textDecorationLine: 'line-through'
+  },
+  tagTextExploding: {
+    fontSize: 20,
+    color: 'black',
+    textDecorationLine: 'line-through'
   },
   scoreText: {
     fontSize: 20

@@ -13,7 +13,10 @@ class ScoringView extends Component {
   constructor(props) {
     super(props);
     this.user = firebase.auth().currentUser;
-    this.state = {};
+
+    this.state = {
+      picScore: ''
+    };
   }
 
   componentDidMount() {
@@ -77,6 +80,8 @@ class ScoringView extends Component {
       </View>
     );
 
+    let currentTags = this.props.currentTags.map((tag) => (tag.tag));
+
     return (
       <View style={styles.container}>
 
@@ -95,11 +100,33 @@ class ScoringView extends Component {
         </View>
 
         <View style={styles.tagsContainer}>
-          {this.props.route.newTags.map((tag) =>
-            <View style={styles.tagContainer}>
-              <Text key={tag} style={styles.tagText}>{tag}</Text>
-            </View>
-          )}
+
+          {this.props.currentTags.map((tag) => {
+            // Assign CSS for the tags
+            let tagStyle;
+            let tagTextStyle;
+
+            // Exploding style
+            if (this.props.route.newTags.indexOf(tag.tag) !== -1) {
+              tagStyle = styles.tagExploding;
+              tagTextStyle = styles.tagTextExploding;
+            // Tag done style
+            } else if (tag.done) {
+              tagStyle = styles.tagDone;
+              tagTextStyle = styles.tagTextDone;
+            // Tag not done style
+            } else {
+              tagStyle = styles.tagNotDone;
+              tagTextStyle = styles.tagTextNotDone;
+            }
+
+            return (
+              <View style={tagStyle}>
+                <Text key={tag} style={tagTextStyle}>{tag.tag}</Text>
+              </View>
+            );
+          })}
+
         </View>
 
         <Text>{this.state.gameOver}</Text>
