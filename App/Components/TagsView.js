@@ -12,16 +12,40 @@ class TagsView extends Component {
     super(props);
   }
 
+  getTagContainerStyle(tag) {
+    if (tag.status) {
+      return styles.completeTagContainer;
+    } else {
+      return styles.incompleteTagContainer;
+    }
+  }
+
+  getTagTextStyle(tag) {
+    if (tag.status) {
+      return styles.completeTagText;
+    } else {
+      return styles.incompleteTagText;
+    }
+  }
+
   render() {
+    let testData = [
+      {text: 'hi', status: true},
+      {text: 'this', status: true},
+      {text: 'is', status: false},
+      {text: 'fantastic', status: true},
+      {text: 'test', status: false},
+      {text: 'data', status: true}
+    ];
 
     // TODO: To unhardcode test data, change to this.props.currentTags
     return (
       <View style={styles.mainContainer}>
 
         <View style={styles.allTags}>
-          {['hi', 'this', 'is', 'fantastic', 'test', 'data'].map((tag) =>
-            <View style={styles.tagContainer}>
-              <Text style={styles.tagText}>{tag}</Text>
+          {testData.map((tag) =>
+            <View style={this.getTagContainerStyle(tag)}>
+              <Text style={this.getTagTextStyle(tag)}>{tag.text}</Text>
             </View>
           )}
         </View>
