@@ -27,7 +27,7 @@ module.exports = {
         cloudinary.uploader.upload(
           'artifact.jpg',
           function(result) {
-            console.log('Successfully uploaded to Cloudinary');
+            console.log('Successfully uploaded to Cloudinary', result);
             database.ref('artifacts').push(
               {
                 message: req.body.message,
@@ -36,7 +36,7 @@ module.exports = {
                 longitude: req.body.longitude,
                 timestamp: req.body.timestamp,
                 tags: req.body.tags,
-                url: result.url
+                url: result.secure_url
               }
             , function() {
               console.log('Successfully pushed to firebase');
