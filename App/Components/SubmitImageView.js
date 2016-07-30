@@ -91,14 +91,24 @@ class SubmitImageView extends Component {
         currentTags: newState
       });
 
-      // Saving hash map to firebase, this way we only ever save unique tags
-      var foundTags = _.reduce(tags, (prev, curr) => {
-        prev[curr] = true;
-        return prev;
-      }, {});
+      this.props.userRef.ref('tags').once('value', (rawTags) => {
+        let tagsObj = rawTags.val();
+        console.log('tagsObj', tagsObj);
 
-      console.log(foundTags);
-      this.props.userRef.ref('tags').set(foundTags);
+        // Saving hash map to firebase, this way we only ever save unique tags
+        var foundTags = _.reduce(tags, (prev, curr) => {
+          prev[curr] = true;
+          return prev;
+        }, {});
+
+        console.log(foundTags);
+
+        var cumulative = _.defaults(tagsObj, foundTags);
+
+        console.log(cumulative);
+        this.props.userRef.ref('tags').set(cumulative);
+      });
+
 
     }, (err) => { console.log(err); });
   }
