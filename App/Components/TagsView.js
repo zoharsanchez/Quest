@@ -16,7 +16,7 @@ class TagsView extends Component {
   }
 
   getTagContainerStyle(tag) {
-    if (tag.complete) {
+    if (tag.done) {
       return styles.completeTagContainer;
     } else {
       return styles.incompleteTagContainer;
