@@ -21,7 +21,7 @@ class TagsView extends Component {
   }
 
   getTagTextStyle(tag) {
-    if (tag.complete) {
+    if (tag.done) {
       return styles.completeTagText;
     } else {
       return styles.incompleteTagText;
